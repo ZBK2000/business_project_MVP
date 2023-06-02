@@ -150,7 +150,7 @@ const {googleSignIn} = UserAuth()
       bottom: 0,
       bgcolor: 'rgba(0, 0, 0, 0.5)', // Background color with opacity
       display: 'flex',
-      alignItems: {md:'center',xs:"end"},
+      alignItems: {md:'center',xs:"flex-end"},
       justifyContent: 'center',
       zIndex: 9999, // Higher z-index to make sure it's above everything else
     }}>

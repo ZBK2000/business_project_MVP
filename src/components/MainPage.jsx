@@ -425,8 +425,8 @@ export default function MainPage(props) {
         >
           {(activity_start_datetime <= current_datetime)&&<Box sx={{position:"absolute", color:"#fb7b7b", left:"0%", top:"50%", borderRadius:"0px 10px 10px 0px",backgroundColor:"#dcdcdc",color:"green", padding:"5px"}}> SOON!</Box>}
           {(!item.isopen)&&<Box sx={{position:"absolute", color:"#fb7b7b", left:"0%", top:"61%", borderRadius:"0px 10px 10px 0px",backgroundColor:"black",color:"white", padding:"5px"}}> PRIVATE</Box>}
-          {user?item.organizer===user.displayName?<Box sx={{position:"absolute", color:"#fb7b7b", left:"22%", top:"3%", borderRadius:"10px",color:"green",backgroundColor:"#a0d8b3b4", padding:"5px", fontWeight:"bold"}}> You are the organizer</Box>:"":""}
-          {user?item.slots.includes(user.displayName)&&!(item.organizer===user.displayName)?<Box sx={{position:"absolute", color:"#fb7b7b", left:"30%", top:"3%", borderRadius:"10px",color:"orange",backgroundColor:"#f7db6ab7", padding:"5px",fontWeight:"bold"}}> You participate</Box>:"":""}
+          {user?item.organizer===user.displayName?<Box sx={{position:"absolute", color:"#fb7b7b",left: "50%",transform: "translateX(-50%)", top:"3%", borderRadius:"10px",color:"green",backgroundColor:"#a0d8b3b4", padding:"5px", fontWeight:"bold"}}> You are the organizer</Box>:"":""}
+          {user?item.slots.includes(user.displayName)&&!(item.organizer===user.displayName)?<Box sx={{position:"absolute", color:"#fb7b7b", left: "50%",transform: "translateX(-50%)", top:"3%", borderRadius:"10px",color:"orange",backgroundColor:"#f7db6ab7", padding:"5px",fontWeight:"bold"}}> You participate</Box>:"":""}
           {foundItem&&<Box sx={{position:"absolute", color:"white", left:"2%", top:"32%",backgroundColor:"#a2a1a196", borderRadius:"10px", padding:"5px"}}>{foundItem.icon}</Box>}
           <CardMedia
             component="img"

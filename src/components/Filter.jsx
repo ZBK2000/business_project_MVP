@@ -173,7 +173,7 @@ console.log(userInfo)
     margin:'0px !important',
     bgcolor: 'rgba(0, 0, 0, 0.5)', // Background color with opacity
     display: 'flex',
-    alignItems: {md:'center',xs:"end"},
+    alignItems: {md:'center',xs:"flex-end"},
     justifyContent: 'center',
     zIndex: 9999, // Higher z-index to make sure it's above everything else
     
@@ -181,8 +181,9 @@ console.log(userInfo)
   }}><motion.div
   initial={{ opacity: 0, y:500 }}
   animate={{ opacity: 1, y:0 }}
-  transition={{ duration: 0.5 }}>
-    <Box sx={{width:{md:"500px",xs:"100%"},maxHeight:"70%",overflow:"auto", backgroundColor:"white",padding:{md:"10px"},position:"relative"}}
+  transition={{ duration: 0.5 }}
+  style={{maxHeight:"90%",overflow:"auto"}}>
+    <Box sx={{width:{md:"500px",xs:"100%"}, backgroundColor:"white",padding:{md:"10px"},position:"relative"}}
     >
      <Button sx={{right:"0%", position:"absolute"}} onClick={()=>setExpanded(false)}><ClearIcon sx={{color:"black"}} /></Button>
         <Box
