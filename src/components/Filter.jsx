@@ -182,7 +182,8 @@ console.log(userInfo)
   initial={{ opacity: 0, y:500 }}
   animate={{ opacity: 1, y:0 }}
   transition={{ duration: 0.5 }}
-  style={{maxHeight:"90%",overflow:"auto"}}>
+  style={{maxHeight:"90%",overflow:"auto",overflowY: "auto",
+  overflowX: "hidden"}}>
     <Box sx={{width:{md:"500px",xs:"100%"}, backgroundColor:"white",padding:{md:"10px"},position:"relative"}}
     >
      <Button sx={{right:"0%", position:"absolute"}} onClick={()=>setExpanded(false)}><ClearIcon sx={{color:"black"}} /></Button>
