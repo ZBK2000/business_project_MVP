@@ -79,7 +79,7 @@ export default function Filter(props) {
   const getUpData = () => {
     
       props.getUpData([value, value2, location, name, sportType, exactDateFrom, exactDateTo, limited,unlimited,free, paid, organizing.length?organizing:participate.length?participate:[],  organizing.length?1:participate.length?2:3]);
-    
+      setExpanded(false)
   };
   useEffect(() => {
     if(props.filterItems){

@@ -54,21 +54,21 @@ const FilterTags = (props) => {
                 if([2,3,4].includes(index)){
                 return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", width:"fit-content", whiteSpace:"nowrap", height:"25px", marginBottom:"10px" }}>{item}<ClearIcon/></Fab>;}
                 else if(index ===0&& originalFilterTags[7]){
-                  return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>{`${props.filterTags[1][0]}-${props.filterTags[1][1]} Ft`}<ClearIcon/></Fab>;}
+                  return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", width:"fit-content", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>{`${props.filterTags[1][0]}-${props.filterTags[1][1]} Ft`}<ClearIcon/></Fab>;}
                   else if(index ===1&& originalFilterTags[10]){
-                    return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>{`${props.filterTags[0][0]}-${props.filterTags[0][1]} People`}<ClearIcon/></Fab>;} 
+                    return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", width:"fit-content", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>{`${props.filterTags[0][0]}-${props.filterTags[0][1]} People`}<ClearIcon/></Fab>;} 
                     else if(index ===5){
-                      return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>{`from ${item}`}<ClearIcon/></Fab>;} 
+                      return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", width:"fit-content", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>{`from ${item}`}<ClearIcon/></Fab>;} 
                       else if(index ===6){
-                        return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>{`until ${item}`}<ClearIcon/></Fab>;} 
+                        return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", width:"fit-content", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>{`until ${item}`}<ClearIcon/></Fab>;} 
                         else if(index ===8){
-                          return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>Unlimited<ClearIcon/></Fab>;} 
+                          return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", width:"fit-content", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>Unlimited<ClearIcon/></Fab>;} 
                           else if(index ===9){
-                            return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>Free<ClearIcon/></Fab>;} 
+                            return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", width:"fit-content", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>Free<ClearIcon/></Fab>;} 
                             else if(index ===11&&item.length&&originalFilterTags[12]===1){
-                              return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>You are the Organizer<ClearIcon/></Fab>;} 
+                              return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", width:"fit-content", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>You are the Organizer<ClearIcon/></Fab>;} 
                               else if(index ===11&&item.length&&originalFilterTags[12]===2){
-                                return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>You Participate<ClearIcon/></Fab>;} 
+                                return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", width:"fit-content", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>You Participate<ClearIcon/></Fab>;} 
                         
               }
             })

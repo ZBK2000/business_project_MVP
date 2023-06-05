@@ -140,7 +140,7 @@ function MapContainer(props) {
         <CardMedia
           component="img"
           sx={{ height: 140 }}
-          src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${hoveredTrack.trackName}&number=${0}`}
+          src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${hoveredTrack._id}&number=${0}&event=${true}`}
           title=""
         />
         <CardContent>
