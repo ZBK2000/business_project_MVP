@@ -207,7 +207,7 @@ export default function SportsSelect(props) {
       disablePortal
       id="combo-box-demo"
       options={sportsList}
-      sx={{ width: 160, border:props.missing&&"1px solid red"}}
+      sx={{ width:{xs:"100%",md: 160}, border:props.missing&&"1px solid red"}}
       getOptionLabel={(option) => option.name} // use the name property of each object
       onChange={handleSelectedValueChange}
       renderInput={(params) => <TextField {...params} label="Choose activity" />}

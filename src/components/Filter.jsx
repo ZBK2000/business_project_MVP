@@ -128,6 +128,14 @@ console.log(userInfo)
     props.getUpData([value, value2, location, name, sportType, exactDateFrom, exactDateTo, limited,unlimited,free, paid,pEvents,1]);
     }
 
+    useEffect(() => {
+if(expanded){
+  document.body.style.overflow = 'hidden';
+} else{
+  document.body.style.overflow = 'auto';
+}
+    }, [expanded]);
+
   return (
     <Box display={"flex"} justifyContent={"center"} flexDirection={"column"} alignItems={"center"} maxWidth={"100%"}>
     <Box className="mainPanel" sx={{ margin: "8px", marginBottom:"25px", "& > :not(style)": { m: 1 }, width:"50%",minWidth:"1030px", borderRadius:"30px", display:{md:"flex", xs:"none"}, justifyContent:"center", alignItems:"center", height:"50px" }}>
@@ -162,7 +170,7 @@ console.log(userInfo)
       </Box>
       </Box>
 
-      <Box>
+      <Box position={"relative"} width={"100%"}>
 
      {expanded&& <Box  onClick={(e)=>handleExpandClick(e)} sx={{
     position: 'fixed',
@@ -174,6 +182,7 @@ console.log(userInfo)
     bgcolor: 'rgba(0, 0, 0, 0.5)', // Background color with opacity
     display: 'flex',
     alignItems: {md:'center',xs:"flex-end"},
+    
     justifyContent: 'center',
     zIndex: 9999, // Higher z-index to make sure it's above everything else
     
@@ -184,7 +193,7 @@ console.log(userInfo)
   transition={{ duration: 0.5 }}
   style={{maxHeight:"90%",overflow:"auto",overflowY: "auto",
   overflowX: "hidden"}}>
-    <Box sx={{width:{md:"500px",xs:"100%"}, backgroundColor:"white",padding:{md:"10px"},position:"relative"}}
+    <Box sx={{width:{md:"500px",xs:"100%"}, backgroundColor:"white",padding:{md:"10px"},position:"relative",borderRadius:{md:"10px"},}}
     >
      <Button sx={{right:"0%", position:"absolute"}} onClick={()=>setExpanded(false)}><ClearIcon sx={{color:"black"}} /></Button>
         <Box
@@ -353,8 +362,8 @@ console.log(userInfo)
            <Grid
               item
               padding={"3px !important"}
-              xs={7.8}
-              
+              xs={12}
+              md={7}
               
               display={"flex"}
               flexDirection={{xs:"column", md:"row"}}

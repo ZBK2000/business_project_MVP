@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import Loading from "./loading";
 import ProvideUserName from "./ProvideUserName";
 import ClearIcon from '@mui/icons-material/Clear';
+import { useEffect } from "react";
 
 export default function LoginWithFirebase(props) {
   //declaring states and consts
@@ -107,6 +108,16 @@ console.log(accepted?.user)
       props.indicator(false)
     } 
   }
+  useEffect(() => {
+    // Disable scrolling when the component is mounted
+    document.body.style.overflow = 'hidden';
+
+    // Enable scrolling when the component is unmounted
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   return (
     <Box  onClick={(e)=>closePopup(e)} sx={{
       position: 'fixed',
@@ -124,7 +135,7 @@ console.log(accepted?.user)
     initial={{ opacity: 0, y: 500}}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}>
-      <Box sx={{width:"400px",height:"500px", backgroundColor:"white", borderRadius:"10px", padding:"10px", position:"relative"}}>
+      <Box sx={{width:"400px",height:"450px", backgroundColor:"white", borderRadius:"10px", padding:"10px", position:"relative"}}>
       <Button sx={{right:"0%", position:"absolute"}} onClick={()=>props.indicator(false)}><ClearIcon sx={{color:"black"}} /></Button>
     <div className="logindiv">
 
@@ -150,7 +161,7 @@ console.log(accepted?.user)
 <Typography variant="h5">Log in to your account</Typography>
 <Typography sx={{textAlign:"center",marginBottom:"25px", marginTop:"10px"}} variant="h7">Welcome back, please enter your details</Typography>
 <Button onClick={handleGoogleSignIn} variant="outlined" sx={{color:"black", borderColor:"#d6d6d6", width:'100%', margin:"10px"}}>Continue with Google</Button>
-<Button variant="outlined" sx={{color:"black",borderColor:"#38569E", width:'100%', margin:"10px", color:"#38569E"}}>Continue with Facebook</Button>
+
 
 <Box display={"flex"} alignItems={"center"} justifyContent={"center"}>
 <hr style={{  backgroundColor: "#d6d6d6",width:"100px",boxShadow:"none"  }}/>

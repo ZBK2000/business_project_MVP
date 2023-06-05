@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { useContext } from "react"
 
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, GoogleAuthProvider, signInWithPopup, sendEmailVerification, sendPasswordResetEmail} from "firebase/auth"
+import {createUserWithEmailAndPassword,EmailAuthProvider, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, GoogleAuthProvider, signInWithPopup, sendEmailVerification, sendPasswordResetEmail, deleteUser, reauthenticateWithCredential, AuthCredential, reauthenticateWithPopup, getAuth} from "firebase/auth"
 import {auth} from "../components/firebase"
 const UserContext = createContext()
 
@@ -39,6 +39,46 @@ export const AuthContextProvider = ({children}) =>{
             displayName: nameOfUser,
           } )
     }
+
+    async function deleteUserFunc (user){
+      try {
+        await deleteUser(user)
+        return true
+      } catch (error) {
+        console.log(error)
+      }
+      
+
+  }
+
+
+  const reauthenticateUser = async (email, password, provider) => {
+    const user = auth.currentUser;
+    if(provider==="password"){
+      try {
+        const credential = EmailAuthProvider.credential(email, password);
+        await reauthenticateWithCredential(user, credential)
+        return true
+      } catch (error) {
+        console.log("Error", "The email or password is incorrect. Please try again.")
+        return false
+      }
+    } else if(provider==="google.com"){
+      try {
+        const googleProvider = new GoogleAuthProvider();
+    
+       await reauthenticateWithPopup(auth.currentUser, googleProvider)
+       
+    
+        return true;
+      } catch (error) {
+        console.log(error);
+        return false;
+      }
+    }
+    }
+
+
     const googleSignIn = async()=>{
         const provider = new GoogleAuthProvider()
       const result =  await signInWithPopup(auth, provider)
@@ -71,7 +111,7 @@ export const AuthContextProvider = ({children}) =>{
 
     }
     return(
-        <UserContext.Provider value={{createUser, user, logout, signIn, googleSignIn, update, passwordReset}}>
+        <UserContext.Provider value={{createUser, user, logout, signIn, googleSignIn, update, passwordReset, deleteUserFunc, reauthenticateUser}}>
             {children}
         </UserContext.Provider>
     )

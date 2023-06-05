@@ -10,6 +10,7 @@ import { motion } from "framer-motion"
 import TimePicker from "./timeline";
 import { toast } from "react-toastify";
 import ClearIcon from '@mui/icons-material/Clear';
+import { useEffect } from "react";
 
 export default function CommunityEvent(props) {
   //declaring states and consts
@@ -28,7 +29,10 @@ export default function CommunityEvent(props) {
   const [timeLine, setTimeLine] = useState("")
   const [exactDate, setExactDate] = useState("")
   const [missing, setMissing] = useState(false)
+  const [online, setOnline] = useState(false)
+  const [onlineLink, setOnlineLink] = useState("")
   const { user } = UserAuth();
+
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
   const userName = user ? user.displayName : "";
  console.log(slots, trackName, isOpen, sportType, exactDate, timeLine)
@@ -36,7 +40,7 @@ export default function CommunityEvent(props) {
 
   async function generateRandomLinkPath(trackName, slots, loc, time, user, subTrackName,description, isopen, city, sportType, exactDate, isLimited, organizer, img) {
     const activity_start_datetime = new Date(`${exactDate}`)
-    for(const item of [trackName, loc, time,description, city, sportType, exactDate]){
+    for(const item of [trackName,  online?"skip":loc, time,description, online?"skip": city, sportType, exactDate]){
       if (!item.length>0) {
         setMissing(true)
         return}
@@ -51,9 +55,10 @@ export default function CommunityEvent(props) {
     }
     
     let latAndLong
-    
+    let data_loc
+    if(!online){
     const response_loc = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${loc}&key=${import.meta.env.VITE_GOOGLE_MAPS_API}`);
-      const data_loc = await response_loc.json();
+      data_loc = await response_loc.json();
       
   
       if (data_loc.results.length > 0) {
@@ -61,7 +66,7 @@ export default function CommunityEvent(props) {
         
         latAndLong = [location.lat, location.lng ];
       }
-
+    }
     let formData = new FormData();
     for (let i = 0; i < img.length; i++) {
       formData.append("img_urls", img[i]);
@@ -69,7 +74,7 @@ export default function CommunityEvent(props) {
     console.log(slots)
     slots[slots.indexOf("")] = user
     console.log(subTrackName)
-    const dataForLink = {trackName, slots, location: data_loc?.results[0]?.formatted_address ? data_loc.results[0].formatted_address: loc, time: `${exactDate} ${time}`,user, subTrackName, description, isopen, city, sportType, isLimited, organizer, activity_start_datetime, latAndLong }
+    const dataForLink = {trackName, slots, location:!online? data_loc?.results[0]?.formatted_address ? data_loc.results[0].formatted_address: loc:"Online", time: `${exactDate} ${time}`,user, subTrackName, description, isopen, city: online? "Online":city, sportType, isLimited, organizer, activity_start_datetime, latAndLong, onlineLink: online?onlineLink:"" }
     console.log(dataForLink)
     const response = await toast.promise( fetch(`${import.meta.env.VITE_BACKEND_URL}/customLink`, {
       method: "POST",
@@ -103,6 +108,18 @@ export default function CommunityEvent(props) {
     // Clicked on the parent element, not on any of its descendants
     props.indicator(false)
   } }
+
+  useEffect(() => {
+    // Disable scrolling when the component is mounted
+    document.body.style.overflow = 'hidden';
+
+    // Enable scrolling when the component is unmounted
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+
   return (
     <Box  onClick={(e)=>closePopup(e)} sx={{
       position: 'fixed',
@@ -145,13 +162,21 @@ export default function CommunityEvent(props) {
   <SportsSelect missing={(missing&&!sportType)?true:false} sportType={setSportType}/>
   
   </Box>
-  <label htmlFor="location">
+  
+    <Box display={"flex"} gap={2}>
+      <Box onClick={()=>setOnline(false)} sx={{borderRadius:"10px", backgroundColor:!online&&"grey", padding:"0px 5px", cursor:"pointer"}}><Typography variant="h6">Offline</Typography></Box>
+      <Box onClick={()=>setOnline(true)} sx={{borderRadius:"10px", backgroundColor:online&&"grey", padding:"0px 5px",cursor:"pointer"}}><Typography variant="h6">Online</Typography></Box>
+
+    </Box>
+    {!online?<Box >
+      <label htmlFor="city">
           <Typography>City:</Typography>
         </label>
         <input
           type="text"
-          id="location"
+          id="city"
           onChange={(e) => setCity(e.target.value)}
+          value={city}
           style={{border: (missing&&!city)&&"1px solid red"}}
         />
         <label htmlFor="location">
@@ -161,9 +186,21 @@ export default function CommunityEvent(props) {
           type="text"
           id="location"
           onChange={(e) => setLocation(e.target.value)}
+          value={location}
           style={{border: (missing&&!location)&&"1px solid red"}}
         />
-         
+    </Box>: <Box ><label htmlFor="online">
+          <Typography>Link (Teams room, discord chanel, etc) [optional]:</Typography>
+        </label>
+        <input
+          type="url"
+          id="online"
+          onChange={(e) => setOnlineLink(e.target.value)}
+          value={onlineLink}
+          
+        /></Box>}
+   
+          
        <label htmlFor="location">
           <Typography>Start time [only whole hours]:</Typography>
         </label>

@@ -16,6 +16,9 @@ import Fab from '@mui/material/Fab';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useEffect } from "react";
+import DeleteAccountConfirm from "./deleteAccountConfirm";
+import { TroubleshootTwoTone } from "@mui/icons-material";
+
 
 
 export default function Header (props){
@@ -23,6 +26,7 @@ export default function Header (props){
     const {user, logout} = UserAuth()
     const id = user ? user.displayName : "";
 const [userInfo, setUserInfo] = useState("")
+const [deleteAcc, setDeleteAcc] = useState(false)
     async function logoutFromUser(){
       await logout()
     }
@@ -94,13 +98,13 @@ const [userInfo, setUserInfo] = useState("")
     async function fetching_user() {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user`, {
         method: "POST",
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({ id : user?user.displayName:"" }),
         headers: {
           "Content-Type": "application/json",
         },
       });
       const data = await response.json();
-      setUserInfo(data)
+      setUserInfo(prev=>prev=data)
     }
   fetching_user()}, [user])
 console.log(userInfo)
@@ -158,7 +162,7 @@ console.log(userInfo)
 {user? <MenuItem onClick={logoutFromUser} color="inherit">
 
     LOG OUT</MenuItem>: "" }
-    {user? <MenuItem onClick={logoutFromUser} sx={{color:"red"}}>
+    {user? <MenuItem onClick={()=>setDeleteAcc(true)} sx={{color:"red"}}>
 
     DELETE ACCOUNT</MenuItem>: "" }
 
@@ -168,6 +172,7 @@ console.log(userInfo)
           </Box>
           </Box>
         </AppBar>
+        {deleteAcc&&<DeleteAccountConfirm indicator={setDeleteAcc}/>}
       </Box>
     );
   }

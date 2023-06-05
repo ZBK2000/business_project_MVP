@@ -17,12 +17,12 @@ function MapContainer(props) {
   const margitIsland = { lat: 47.5181, lng: 19.0383 };
   const chainBridge = { lat: 47.4979, lng: 19.0402 };
   const {user} = UserAuth()
-  
-  function navigateToTrack (name){
+   console.log(props.tracks)
+  function navigateToTrack (id, name){
     if (user) {
-      navigate(`/tracks/${name}`);
+      navigate(`/tracks/${name}/${id}`);
     } else {
-      navigate(`/login/${name}`);
+      props.setShowRegister(true)
     }
   }
   const [hoveredMarker, setHoveredMarker] = useState(null);
@@ -52,7 +52,7 @@ function MapContainer(props) {
   let hoveredTrack 
   if (hoveredMarker){
     for (let right in props.tracks){
-      if(props.tracks[right].name == hoveredMarker.name)
+      if(props.tracks[right]._id == hoveredMarker.id)
       {hoveredTrack = props.tracks[right]}
     }
   }
@@ -104,8 +104,8 @@ function MapContainer(props) {
       <Marker
         key={item[1]}
         
-        onMouseOver={() => handleMarkerHover({ lat: item[0][0], lng: item[0][1], name: item[1] })}
-        onClick={() => handleMarkerHover({ lat: item[0][0], lng: item[0][1], name: item[1] })}
+        onMouseOver={() => handleMarkerHover({ lat: item[0][0], lng: item[0][1], id: item[1], name: item[2] })}
+        onClick={() => handleMarkerHover({ lat: item[0][0], lng: item[0][1], id: item[1],name: item[2] })}
         icon={<CustomIcon />}
         position={{ lat: item[0][0], lng: item[0][1] }}
       />
@@ -131,8 +131,8 @@ function MapContainer(props) {
         className="tracks"
         width={"200px"}
         sx={{ backgroundColor: theme.palette.secondary.main, margin: "auto", position:"relative" }}
-        onClick={() => navigateToTrack(hoveredTrack.name)}
-        key={hoveredTrack.name}
+        onClick={() => navigateToTrack(hoveredMarker.id, hoveredMarker.name)}
+        
       >
        {/*  {heartList.includes(item.name) ?<FavoriteIcon  onClick={(e)=>changeHeart(e, item.name)} sx={{position:"absolute", color:"#fb7b7b", left:"85%", top:"5%"}}/>:
         <FavoriteBorderIcon onClick={(e)=>changeHeart(e, item.name)} sx={{position:"absolute",color:"#fb7b7b", left:"85%", top:"5%"}}/>} */}
@@ -140,23 +140,20 @@ function MapContainer(props) {
         <CardMedia
           component="img"
           sx={{ height: 140 }}
-          src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${hoveredTrack.name}&number=${0}`}
+          src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${hoveredTrack.trackName}&number=${0}`}
           title=""
         />
         <CardContent>
         
           <Typography gutterBottom variant="h5" component="div">
-            {hoveredTrack.name}
+            {hoveredTrack.trackName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {hoveredTrack.location}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {hoveredTrack.price}FT
-          </Typography>
 
           <Typography variant="body2" color="text.secondary">
-            {hoveredTrack.slot_number}P
+            {hoveredTrack.time}
           </Typography>
         </CardContent>
       </Card>

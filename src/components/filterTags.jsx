@@ -34,7 +34,7 @@ const FilterTags = (props) => {
         props.setFilters([...originalFilterTags])
       }
     return (
-        <Grid width={"100%"} padding={'10px'}  display={'flex'} justifyContent={"flex-start"} gap={2}  className='element'
+        <Grid width={"100%"} padding={'10px'}  display={'flex'} justifyContent={{md:"center"}} gap={2 }  className='element'
         sx={{   
         
           marginTop:"-15px",
@@ -42,17 +42,17 @@ const FilterTags = (props) => {
           top: 0,
           left: 0,
          
-          height: '100%',
+          
           
         
-         overflowX: 'auto',
+         
         
         }}>
         {props.filterTags
           ? originalFilterTags.map((item, index) => {
               if (item) {
                 if([2,3,4].includes(index)){
-                return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", whiteSpace:"nowrap", height:"25px", marginBottom:"10px" }}>{item}<ClearIcon/></Fab>;}
+                return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", width:"fit-content", whiteSpace:"nowrap", height:"25px", marginBottom:"10px" }}>{item}<ClearIcon/></Fab>;}
                 else if(index ===0&& originalFilterTags[7]){
                   return <Fab onClick={()=>deleteFilter(index)}  variant='extended' key={index} sx={{ color: "black",minWidth:"100px", whiteSpace:"nowrap", height:"25px", marginBottom:"10px"  }}>{`${props.filterTags[1][0]}-${props.filterTags[1][1]} Ft`}<ClearIcon/></Fab>;}
                   else if(index ===1&& originalFilterTags[10]){

@@ -4,9 +4,19 @@ import Header from "./Header";
 import { useState } from "react";
 import { motion } from "framer-motion"
 import ClearIcon from '@mui/icons-material/Clear';
+import { useEffect } from "react";
 
 export default function Help (props){
+    useEffect(() => {
+        // Disable scrolling when the component is mounted
+        document.body.style.overflow = 'hidden';
     
+        // Enable scrolling when the component is unmounted
+        return () => {
+          document.body.style.overflow = 'auto';
+        };
+      }, []);
+
     return(
         <Box  onClick={()=>props.indicator(false)} sx={{
             position: 'fixed',

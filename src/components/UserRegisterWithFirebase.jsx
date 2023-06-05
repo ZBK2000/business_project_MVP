@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import Loading from "./loading";
 import ProvideUserName from "./ProvideUserName";
 import ClearIcon from '@mui/icons-material/Clear';
+import { useEffect } from "react";
 
 export default function UserRegisterWithFirebase(props) {
   //declaring states
@@ -47,10 +48,12 @@ const {googleSignIn} = UserAuth()
         },
       });
       const accepted = await response.text();
+      console.log(accepted)
       if (accepted === "successfully registrated") {
         const userInfo = await createUser(email, password, nameOfUser);
         console.log(userInfo)
         if(userInfo){
+          console.log("huhaha")
           await fetch(`${import.meta.env.VITE_BACKEND_URL}/usersave`, {
             method: "POST",
             body: JSON.stringify(data),
@@ -58,7 +61,9 @@ const {googleSignIn} = UserAuth()
               "Content-Type": "application/json",
             }, 
           });
-            
+          
+          
+         
             props.indicator(false)
             toast(`Welcome ${nameOfUser}` )
           //  navigate(`/`)
@@ -139,6 +144,15 @@ const {googleSignIn} = UserAuth()
     
   }
 
+  useEffect(() => {
+    // Disable scrolling when the component is mounted
+    document.body.style.overflow = 'hidden';
+
+    // Enable scrolling when the component is unmounted
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
 
   return (
     
@@ -158,7 +172,7 @@ const {googleSignIn} = UserAuth()
     initial={{ opacity: 0, y:500 }}
     animate={{ opacity: 1, y:0 }}
     transition={{ duration: 0.5 }}>
-      <Box sx={{width:"400px",height:"600px", backgroundColor:"white", borderRadius:"10px", padding:"10px", position:"relative"}}>
+      <Box sx={{width:"400px",height:"550px", backgroundColor:"white", borderRadius:"10px", padding:"10px", position:"relative"}}>
       <Button sx={{right:"0%", position:"absolute"}} onClick={()=>props.indicator(false)}><ClearIcon sx={{color:"black"}} /></Button>
     <div>
       {!user ? (
@@ -171,7 +185,7 @@ const {googleSignIn} = UserAuth()
             <Typography variant="h5">Create your account</Typography>
             <Typography sx={{textAlign:"center",marginBottom:"25px", marginTop:"10px"}} variant="h7">Sign up now and join others in various activities</Typography>
             <Button onClick={handleGoogleSignIn} variant="outlined" sx={{color:"black", borderColor:"#d6d6d6", width:'100%', margin:"10px"}}>Sign up with Google</Button>
-            <Button variant="outlined" sx={{color:"black",borderColor:"#38569E", width:'100%', margin:"10px", color:"#38569E"}}>Sign up with Facebook</Button>
+            
             
             <Box display={"flex"} alignItems={"center"} justifyContent={"center"}>
             <hr style={{  backgroundColor: "#d6d6d6",width:"100px",boxShadow:"none"  }}/>

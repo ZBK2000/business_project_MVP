@@ -57,6 +57,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import SchoolIcon from '@mui/icons-material/School';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import Help from "./Help";
+import DeleteAccountConfirm from "./deleteAccountConfirm";
 
 const sportsIcons = [
   {name: 'Soccer', icon: <SportsSoccerIcon />},
@@ -102,6 +103,7 @@ export default function MainPage(props) {
   const [isMoreLink, setIsMoreLink] = useState(true)
   const [isMoreTrack, setIsMoreTrack] = useState(true)
   const [newFilterSet, setNewFilterSet] = useState(false)
+  
   const [help, setHelp] = useState(false)
   const isFirstRender = useRef(true)
   
@@ -369,7 +371,7 @@ export default function MainPage(props) {
   }
     
   }
-
+  let allLocation2 = []
   console.log(filteredDataCommunity.length, filteredDataCommunity )
   const validLinks = filteredDataCommunity ==="empty" ? []: filteredDataCommunity.length >0  ? filteredDataCommunity: props.allLinks 
   let activityCounter = 0
@@ -399,6 +401,14 @@ export default function MainPage(props) {
         }
       }, 0);
       activityCounter ++
+if(item.latAndLong) {
+    try {
+      allLocation2.push([item.latAndLong, item._id, item.trackName])
+    } catch (error) {
+      console.log(error)
+    }}
+    
+  
     return (
       <Grid
       
@@ -571,7 +581,7 @@ console.log(filterItems)
         className="container"
         
       >{liveActivities}</Grid> </InfiniteScroll> 
-        </Grid>: <MapContainer locations={allLocation} tracks={filteredData} center={filterItems? filterItems[2]: "Budapest"}/>}
+        </Grid>: <MapContainer setShowRegister={setShowRegister} locations={allLocation2} tracks={validLinks} center={filterItems? filterItems[2]: "Budapest"}/>}
      
      {/*  <Typography variant="h5" sx={{margin:"-10px 8px 20px"}}>Community events</Typography>
       <Grid

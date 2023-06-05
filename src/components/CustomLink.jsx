@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { Typography, Button, Grid, List, ListItem, ListItemText, Fab } from '@mui/material';
+import { Typography, Button, Grid, List, ListItem, ListItemText, Fab, Link } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 import { Box } from '@mui/system';
@@ -332,8 +332,11 @@ const count = linkData?.slots? linkData.slots.reduce((acc, curr) => {
         </Box>
       
         </Box>
-        <Box sx={{width:{md:"50%"}}}>
-        {linkData.latAndLong&&<GoogleMapIndividual coordinates={linkData?.latAndLong ?linkData.latAndLong:[]}/>}
+        <Box sx={{width:{md:"50%"}, display:{xs:"none", md:"inline"}}}>
+        {linkData?.latAndLong?linkData.latAndLong.length?<GoogleMapIndividual coordinates={linkData?.latAndLong ?linkData.latAndLong:[]}/>:linkData?.onlineLink? 
+        <Box><Typography variant='h5'>Link:</Typography>
+        <Link sx={{color:"black", cursor:"pointer", fontSize:"22px"}}>{linkData.onlineLink}</Link></Box>:"":""}
+        
         </Box>
 
         {user? user.displayName === linkData.user?<Box sx={{display:{md:"flex",xs:"none"}, gap:1}}  flexDirection={"column"} ><Fab  onClick={()=>setCancelEvent(true)} variant='extended' sx={{color:"black", borderColor:"red",width:"150px", backgroundColor:"#ff00005b", "&:hover":{backgroundColor:"#ff000094"}}}>Cancel event</Fab> 
@@ -362,7 +365,9 @@ const count = linkData?.slots? linkData.slots.reduce((acc, curr) => {
         </Box>
 
         <Box sx={{display:{md:"none"}}}>
-        {linkData.latAndLong&&<GoogleMapIndividual coordinates={linkData?.latAndLong ?linkData.latAndLong:[]}/>}
+        {linkData?.latAndLong? linkData.latAndLong.length?<GoogleMapIndividual coordinates={linkData?.latAndLong ?linkData.latAndLong:[]}/>:linkData?.onlineLink? 
+       <Box padding={"20px"}><Typography variant='h5'>Link:</Typography>
+       <Link sx={{color:"black", cursor:"pointer", fontSize:"22px"}}>{linkData.onlineLink}</Link></Box>:"":""}
         </Box>
 
         <Box display={{md:"flex"}}>
@@ -434,12 +439,12 @@ const count = linkData?.slots? linkData.slots.reduce((acc, curr) => {
                   alt="image"
                 />
               ))}
-                            <ArrowForwardIosIcon onClick={(e)=>changeSlide(e, 1)} sx={{position:"absolute",  left: "85%",
-  bottom: "45%", fontSize:"45px", color:"#f5f5f5", "&:hover":{ fontSize:"50px", color:"#d1d1d1"}}} />
-   <ArrowBackIosNewIcon onClick={(e)=>changeSlide(e,-1)} sx={{position:"absolute",  right: "85%",
-  bottom: "45%", fontSize:"45px", color:"#f5f5f5", "&:hover":{ fontSize:"50px", color:"#d1d1d1"}}} />  </Box> :""}
+                    {(linkData?.img_urls ? linkData?.img_urls.length: 0) ==0 ?"":        <ArrowForwardIosIcon onClick={(e)=>changeSlide(e, 1)} sx={{position:"absolute",  left: "85%",
+  bottom: "45%", fontSize:"45px", color:"#f5f5f5", "&:hover":{ fontSize:"50px", color:"#d1d1d1"}}} />}
+   {(linkData?.img_urls ? linkData?.img_urls.length: 0) ==0 ?"":   <ArrowBackIosNewIcon onClick={(e)=>changeSlide(e,-1)} sx={{position:"absolute",  right: "85%",
+  bottom: "45%", fontSize:"45px", color:"#f5f5f5", "&:hover":{ fontSize:"50px", color:"#d1d1d1"}}} />}  </Box> :""}
             
-  {(linkData?.img_urls ? linkData?.img_urls.length: 0) ==0 ? <Typography variant='h6' textAlign={"center"}>We couldn't retrieve the images or there isn't any provided</Typography>:''}
+  {(linkData?.img_urls ? linkData?.img_urls.length: 0) ==0 ? <Typography variant='h6' textAlign={"center"} width={'100%'}>There is no image provided for this activity :(</Typography>:''}
             </Grid>
 
             </Box>

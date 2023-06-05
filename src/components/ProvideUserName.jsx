@@ -29,8 +29,8 @@ console.log(players)
           "Content-Type": "application/json",
         },
       });
-      const accepted = await response.text();
-      if (accepted=="success"){
+      const accepted = await response.json();
+      if (accepted.msg==="success"){
         await update(user, userName)
         props.indicator(false)
         if(props?.indicator2) props?.indicator2(false)
