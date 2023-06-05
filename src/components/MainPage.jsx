@@ -518,7 +518,11 @@ setIsMoreLink(false)
 }
 console.log(props.allLinks.length, props.allTrack.length)
 useEffect(() => {
-  
+  if(isFirstRender.current) {
+
+    isFirstRender.current=false
+  }
+   else{
   
   if(!community && !props.allTrack.length){
 
@@ -526,21 +530,17 @@ useEffect(() => {
   } else if(community && !props.allLinks.length){
     loadMore();
   }
-}, [community,newFilterSet]);
+}}, [community,newFilterSet]);
 
 useEffect(() => {
-  if(isFirstRender.current) {
 
-    isFirstRender.current=false
-  }
-   else{
   props.allTracksSetter(prev=>prev=[])
   props.allLinksSetter(prev=>prev=[])
   setIsMoreLink(true)
   setIsMoreTrack(true)
   setNewFilterSet(prev=>!prev)
 
-  }
+
 
   
 }, [ filterItems]);
