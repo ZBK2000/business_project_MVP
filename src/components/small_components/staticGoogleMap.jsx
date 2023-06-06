@@ -1,12 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { GoogleMap, InfoWindow, LoadScript, Marker } from '@react-google-maps/api';
-import { useNavigate } from 'react-router-dom';
-import { UserAuth } from '../context/AuthContext';
-import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
-import { useTheme } from "@emotion/react";
-import { SvgIcon } from '@mui/material';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { async } from '@firebase/util';
+import React, { useMemo, useState } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 function GoogleMapIndividual(props) {
     const [map, setMap] = useState(null);

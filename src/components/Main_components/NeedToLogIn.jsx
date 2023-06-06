@@ -1,6 +1,6 @@
 import {  Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { UserAuth } from "../context/AuthContext";
+import { UserAuth } from "../../context/AuthContext";
 
 export default function  NeedToLogIn() {
 

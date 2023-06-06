@@ -121,6 +121,8 @@ const OtherSportMenuItem = ({ onClick }) => {
  import * as React from 'react';
  import TextField from '@mui/material/TextField';
  import Autocomplete from '@mui/material/Autocomplete';
+import { useState } from 'react';
+import { useEffect } from 'react';
  
  const sportsList = [
   { name: 'Soccer' },
@@ -194,11 +196,19 @@ const OtherSportMenuItem = ({ onClick }) => {
 
  
 export default function SportsSelect(props) {
+  const [selectedValue, setSelectedValue] = useState(null);
+
+  useEffect(() => {
+    setSelectedValue(props.sport); // Set the initial selected value from props
+  }, [props.sport]);
+
   const handleSelectedValueChange = (event, newValue) => {
     if (newValue === null || newValue === undefined) {
-      props.sportType(""); // Set the sport type to an empty value
+      props.sportType("");
+      setSelectedValue("") // Set the sport type to an empty value
     } else {
-      props.sportType(newValue.name); // Set the sport type to the selected value's name
+      props.sportType(newValue.name);
+      setSelectedValue(newValue.name) // Set the sport type to the selected value's name
     }
   };
 
@@ -207,10 +217,13 @@ export default function SportsSelect(props) {
       disablePortal
       id="combo-box-demo"
       options={sportsList}
-      sx={{ width:{xs:"100%",md: 160}, border:props.missing&&"1px solid red"}}
+      sx={{ width:{xs:"100%"}, border:props.missing&&"1px solid red", zIndex:999}}
       getOptionLabel={(option) => option.name} // use the name property of each object
       onChange={handleSelectedValueChange}
-      renderInput={(params) => <TextField {...params} label="Choose activity" />}
+      renderInput={(params) => <TextField {...params} label={"Choose activity"} />}
+      value={selectedValue} // Use the local state for the selected value
+      inputValue={selectedValue ? selectedValue : ''} // Set initial input value to selectedValue.name 
+      
     />
   );
 }

@@ -2,7 +2,7 @@ import { Box } from "@mui/system";
 import { Button, Fab, Grid, IconButton, List, ListItem, ListItemText, MenuItem, Select, Typography } from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
 import { useState } from "react";
-import { UserAuth } from "../context/AuthContext";
+import { UserAuth } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 
 export default function  ProvideUserName(props) {

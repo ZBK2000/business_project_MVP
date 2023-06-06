@@ -1,30 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
 import { Typography, Button, Grid, List, ListItem, ListItemText, Fab, Link } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import { UserAuth } from '../context/AuthContext';
+import { UserAuth } from '../../context/AuthContext';
 import { Box } from '@mui/system';
-import LoginWithFirebase from './loginWithFirebase';
+import LoginWithFirebase from '../Forms/loginWithFirebase';
 import Header from './Header';
-import CountdownTimer from './timerCountDown';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
-import CopyToClipboardButton from './CopyURL';
+import CopyToClipboardButton from '../small_components/CopyURL';
 import { useLocation } from 'react-router-dom';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import Conversation from './ratingSlider copy';
-import CancelEvent from './CancelEvent';
-import VerifyEmail from './verifyEmail';
-import Skeleton from 'react-loading-skeleton'
-import { Example } from './framerTest';
+import Conversation from '../small_components/ratingSlider copy';
+import CancelEvent from '../Smaller_Pop_ups/CancelEvent';
+import VerifyEmail from '../Smaller_Pop_ups/verifyEmail';
 import { motion } from "framer-motion";
-import UserRegisterWithFirebase from './UserRegisterWithFirebase';
-import ProvideUserName from './ProvideUserName';
-import CelebrationAnimation from './finalizing';
+import UserRegisterWithFirebase from '../Forms/UserRegisterWithFirebase';
+import ProvideUserName from '../Smaller_Pop_ups/ProvideUserName';
 import { toast } from 'react-toastify';
-import GoogleMapIndividual from './staticGoogleMap';
-import MasonryImageList from './imagelist';
+import GoogleMapIndividual from '../small_components/staticGoogleMap';
+import MasonryImageList from '../small_components/imagelist';
 import Help from './Help';
 
  export default function CustomLink() {
@@ -278,6 +273,14 @@ const count = linkData?.slots? linkData.slots.reduce((acc, curr) => {
           
         
           <Box sx={{ display: "flex", flexDirection: "column", justifyContent:"center" }}>
+          <Box sx={{ display: "grid", gridTemplateColumns: "120px auto", gap: 6 }}>
+    <Typography variant="h6" component="h1" gutterBottom>
+      Price:
+    </Typography>
+    <Typography variant="h6" component="h1" gutterBottom className='gradient-heading2' sx={{width:"fit-content", padding:"0px 5px", borderRadius:"10px"}}>
+      {linkData?.price?linkData.price?`${linkData.price}Ft`:"FREE":"FREE"}
+    </Typography>
+  </Box>
   <Box sx={{ display: "grid", gridTemplateColumns: "120px auto", gap: 6 }}>
     <Typography variant="h6" component="h1" gutterBottom>
       Date:
@@ -288,20 +291,21 @@ const count = linkData?.slots? linkData.slots.reduce((acc, curr) => {
   </Box>
   <Box sx={{ display: "grid", gridTemplateColumns: "120px auto", gap: 6 }}>
     <Typography variant="h6" component="h1" gutterBottom>
+      Length:
+    </Typography>
+    <Typography variant="h6" component="h1" gutterBottom>
+      {linkData?.lengthOfActivity? linkData.lengthOfActivity? `${linkData.lengthOfActivity}h`:"-":"-"}
+    </Typography>
+  </Box>
+  <Box sx={{ display: "grid", gridTemplateColumns: "120px auto", gap: 6 }}>
+    <Typography variant="h6" component="h1" gutterBottom>
       Location:
     </Typography>
     <Typography variant="h6" component="h1" gutterBottom>
       {linkData.location}
     </Typography>
   </Box>
-  <Box sx={{ display: "grid", gridTemplateColumns: "120px auto", gap: 6 }}>
-    <Typography variant="h6" component="h1" gutterBottom>
-      Subtrack:
-    </Typography>
-    <Typography variant="h6" component="h1" gutterBottom>
-      {linkData.subTrackName}
-    </Typography>
-  </Box>
+ 
   <Box sx={{ display: "grid", gridTemplateColumns: "120px auto", gap: 6 }}>
     <Typography variant="h6" component="h1" gutterBottom>
       Event Type:

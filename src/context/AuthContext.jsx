@@ -7,6 +7,20 @@ const UserContext = createContext()
 
 export const AuthContextProvider = ({children}) =>{
     const [user, setUser] =useState({})
+    const [filterItems, setFilterItems] =useState([])
+  const [location, setLocation] = useState("");
+  const [name, setName] = useState("");
+  const [sportType,setSportType] = useState("")
+  const [exactDateFrom, setExactDateFrom] = useState("")
+  const [exactDateTo, setExactDateTo] = useState("")
+  const [free, setFree] = useState(false)
+  const [limited, setLimited] = useState(false)
+  const [paid, setPaid] = useState(false)
+  const [unlimited, setUnlimited] = useState(false)
+  const [participate, setParticipate] = useState("")
+  const [organizing, setOrganizing] = useState("")  
+
+  const [count, setCount] = useState(null)
 
     const createUser = async (email, password, nameOfUser) => {
      
@@ -110,8 +124,41 @@ export const AuthContextProvider = ({children}) =>{
         return signInWithEmailAndPassword(auth, email, password)
 
     }
+
+    const Filtering = (items) =>{
+      setFilterItems(prev=>prev=items)
+
+  }
+
     return(
-        <UserContext.Provider value={{createUser, user, logout, signIn, googleSignIn, update, passwordReset, deleteUserFunc, reauthenticateUser}}>
+        <UserContext.Provider value={{createUser, user, logout, signIn, googleSignIn, update, passwordReset, deleteUserFunc, reauthenticateUser, filterItems, Filtering, 
+         
+          location,
+          name,
+          sportType,
+          exactDateFrom,
+          exactDateTo,
+          free,
+          limited,
+          paid,
+          unlimited,
+          participate,
+          organizing,
+          count,
+          
+          setLocation,
+          setName,
+          setSportType,
+          setExactDateFrom,
+          setExactDateTo,
+          setFree,
+          setLimited,
+          setPaid,
+          setUnlimited,
+          setParticipate,
+          setOrganizing,
+          setCount
+        }}>
             {children}
         </UserContext.Provider>
     )
