@@ -91,7 +91,9 @@ export default function Help(props) {
               can organize paid events, but you will have to handle the payments</li>
             </Typography>
             
-            <Typography margin={"10px"} variant="h6"></Typography>
+            <Typography margin={"10px"} variant="h6">
+            <li>SOON! more Date avaliability for events, recurring options</li>
+            </Typography>
             <Typography margin={"10px"} variant="h6">
             <li> If you have any question or suggestion, please contact us
               businessTest@outlook.hu</li>

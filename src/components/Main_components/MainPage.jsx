@@ -352,7 +352,7 @@ export default function MainPage(props) {
                   </Box>
                 <CardMedia
                   component="img"
-                  sx={{ height: 140, backgroundColor:"#ebebeb" }}
+                  sx={{ height: 140, backgroundColor:"#e1dfdf" }}
                   src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${
                     item._id
                   }&number=${0}&event=${true}`}
