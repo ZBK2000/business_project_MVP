@@ -148,7 +148,17 @@ export default function MainPage(props) {
         activityCounter++;
         if (item.latAndLong) {
           try {
-            allLocation2.push([item.latAndLong, item._id, item.trackName]);
+            // Check if latAndLong already exists in allLocation2
+            const existingLocation = allLocation2.find(location => location[0][0] === item.latAndLong[0] && location[0][1] === item.latAndLong[1]);
+        
+            if (existingLocation) {
+              // Add item._id and item.trackName to the existing location
+              existingLocation[1].push(item._id);
+              existingLocation[2].push(item.trackName);
+            } else {
+              // Create a new entry for latAndLong
+              allLocation2.push([item.latAndLong, [item._id], [item.trackName]]);
+            }
           } catch (error) {
             console.log(error);
           }
@@ -342,10 +352,12 @@ export default function MainPage(props) {
                   </Box>
                 <CardMedia
                   component="img"
-                  sx={{ height: 140 }}
+                  sx={{ height: 140, backgroundColor:"#ebebeb" }}
                   src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${
                     item._id
                   }&number=${0}&event=${true}`}
+                 
+                  
                 />
                 <CardContent className="tooltip  ">
                   <Typography

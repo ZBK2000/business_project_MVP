@@ -49,11 +49,11 @@ function MapContainer(props) {
     onMouseOut={() => handleMarkerLeave()}
      position={{ lat: item[0][0], lng: item[0][1] }} />
   ))},[props.locations]) */
-  let hoveredTrack 
+  let hoveredTrack =[]
   if (hoveredMarker){
     for (let right in props.tracks){
-      if(props.tracks[right]._id == hoveredMarker.id)
-      {hoveredTrack = props.tracks[right]}
+      if(hoveredMarker.id.includes(props.tracks[right]._id))
+      {hoveredTrack.push(props.tracks[right])}
     }
   }
   const handleMarkerHover = (marker) => {
@@ -87,6 +87,8 @@ function MapContainer(props) {
   const CustomIcon = () => (
     <SvgIcon component={LocationOnIcon} viewBox="0 0 24 24"  color="primary" fontSize="large" />
   );
+
+  console.log(hoveredTrack.length)
   return (
     <LoadScript
       googleMapsApiKey= {import.meta.env.VITE_GOOGLE_MAPS_API}
@@ -115,49 +117,54 @@ function MapContainer(props) {
             position={{lat: hoveredMarker.lat, lng: hoveredMarker.lng }}
             
            
-          >
-           <Grid
-      item
-      padding={"8px !important"}
-      xs={12}
-      sm={6}
-      md={4}
-      lg={3}
-      xl={2.2}
-      width={"250px"}
-      height={"100%"}
+          ><Grid sx={{maxHeight:"400px", overflow:"auto"}}>
+{hoveredTrack.map(hoveredTrack=>{
+  return(
+    <Grid
+    item
+    padding={"8px !important"}
+    xs={12}
+    sm={6}
+    md={4}
+    lg={3}
+    xl={2.2}
+    width={"250px"}
+    height={"100%"}
+  >
+    <Card
+      className="tracks"
+      width={"200px"}
+      sx={{ backgroundColor: theme.palette.secondary.main, margin: "auto", position:"relative" }}
+      onClick={() => navigateToTrack(hoveredTrack._id, hoveredTrack.trackName)}
+      
     >
-      <Card
-        className="tracks"
-        width={"200px"}
-        sx={{ backgroundColor: theme.palette.secondary.main, margin: "auto", position:"relative" }}
-        onClick={() => navigateToTrack(hoveredMarker.id, hoveredMarker.name)}
-        
-      >
-       {/*  {heartList.includes(item.name) ?<FavoriteIcon  onClick={(e)=>changeHeart(e, item.name)} sx={{position:"absolute", color:"#fb7b7b", left:"85%", top:"5%"}}/>:
-        <FavoriteBorderIcon onClick={(e)=>changeHeart(e, item.name)} sx={{position:"absolute",color:"#fb7b7b", left:"85%", top:"5%"}}/>} */}
-        
-        <CardMedia
-          component="img"
-          sx={{ height: 140 }}
-          src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${hoveredTrack._id}&number=${0}&event=${true}`}
-          title=""
-        />
-        <CardContent>
-        
-          <Typography gutterBottom variant="h5" component="div">
-            {hoveredTrack.trackName}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {hoveredTrack.location}
-          </Typography>
+     {/*  {heartList.includes(item.name) ?<FavoriteIcon  onClick={(e)=>changeHeart(e, item.name)} sx={{position:"absolute", color:"#fb7b7b", left:"85%", top:"5%"}}/>:
+      <FavoriteBorderIcon onClick={(e)=>changeHeart(e, item.name)} sx={{position:"absolute",color:"#fb7b7b", left:"85%", top:"5%"}}/>} */}
+      
+      <CardMedia
+        component="img"
+        sx={{ height: 140 }}
+        src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${hoveredTrack._id}&number=${0}&event=${true}`}
+        title=""
+      />
+      <CardContent>
+      
+        <Typography gutterBottom variant="h5" component="div">
+          {hoveredTrack.trackName}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {hoveredTrack.location}
+        </Typography>
 
-          <Typography variant="body2" color="text.secondary">
-            {hoveredTrack.time}
-          </Typography>
-        </CardContent>
-      </Card>
-    </Grid>
+        <Typography variant="body2" color="text.secondary">
+          {hoveredTrack.time}
+        </Typography>
+      </CardContent>
+    </Card>
+  </Grid>
+  )
+})}
+          </Grid>
           </InfoWindow>
         )}
       </GoogleMap>
