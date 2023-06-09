@@ -9,6 +9,8 @@ import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useEffect } from "react";
+import TimeLinePicker from "../small_components/timeline";
+import CircleLine from "../small_components/FormprogressIndicatior";
 
 export default function CommunityEvent(props) {
   //declaring states and consts
@@ -208,7 +210,7 @@ export default function CommunityEvent(props) {
         transition={{ type: "spring", duration: 1.5, bounce: 0.5 }}
       >
         <Box
-          className={"element"}
+          
           sx={{
             width: { md: "600px", sx: "80%" },
             height: "600px",
@@ -233,7 +235,7 @@ export default function CommunityEvent(props) {
           </Typography>
 
           <label htmlFor="name">
-            <Typography>Name of the Activity:</Typography>
+            <Typography variant="h6" >Name of the Activity:</Typography>
           </label>
           <input
             type="text"
@@ -241,6 +243,8 @@ export default function CommunityEvent(props) {
             onChange={(e) => setName(e.target.value)}
             style={{ border: missing && !name && "1px solid red" }}
           />
+          <CircleLine number={1}/>
+           <Typography variant="h6">Start Date:</Typography>
            <Box
             display={"flex" }
             justifyContent={"space-around"}
@@ -256,27 +260,38 @@ export default function CommunityEvent(props) {
               />
               {/*<TimePicker getUpData={setTimeLine}/>*/}
             </Box>
-            <SportsSelect
+            <TimeLinePicker HourMinuteSetter={setTimeLine} missing={missing && !timeLine ? true : false}/>
+           
+          </Box>
+          <CircleLine number={2}/>
+          <Typography variant="h6">Activity Type:</Typography>
+          <SportsSelect
               missing={missing && !sportType ? true : false}
               sportType={setSportType}
               sport={sportType}
             />
-          </Box>
-          <Box display={"flex"} gap={2} margin={"10px 0px"}>
+            <Typography sx={{textAlign:"center"}}>Choose 'other' if you didnt found your desired activity type</Typography>
+       <CircleLine number={3}/>
+            <Typography variant="h6">Pricing:</Typography>
+          <Box display={"flex"} gap={2} margin={"10px 0px"} width={"100%"}>
             <Box
               onClick={() => setPrice(false)}
               sx={{
+                width:"50%",
                 borderRadius: "10px",
                 backgroundColor: !price && "#d6d6d6",
                 padding: "0px 5px",
                 cursor: "pointer",
+                
               }}
             >
-              <Typography variant="h6" sx={{width:"57.5px", textAlign:"center"}}>Free</Typography>
+              <Typography variant="h6" sx={{ textAlign:"center"}}>Free</Typography>
             </Box>
+            
             <Box
               onClick={() => setPrice("priced")}
               sx={{
+                width:"50%",
                 borderRadius: "10px",
                 backgroundColor: price && "#d6d6d6",
                 padding: "0px 5px",
@@ -284,7 +299,7 @@ export default function CommunityEvent(props) {
               }}
             >
             
-              <Typography variant="h6">Priced</Typography>
+              <Typography variant="h6"  sx={{ textAlign:"center"}}>Priced</Typography>
             </Box>
           </Box>
           {price?      <TextField
@@ -294,8 +309,8 @@ export default function CommunityEvent(props) {
               fullWidth={"100%"}
               label="The price of the Activity (Ft)"
             ></TextField>:""}
-         
-
+<CircleLine number={4}/>
+         <Typography variant="h6">Location:</Typography>
           <Box display={"flex"} gap={2} margin={"10px 0px"}>
             <Box
               onClick={() => setOnline(false)}
@@ -304,9 +319,10 @@ export default function CommunityEvent(props) {
                 backgroundColor: !online && "#d6d6d6",
                 padding: "0px 5px",
                 cursor: "pointer",
+                width:"50%"
               }}
             >
-              <Typography variant="h6">Offline</Typography>
+              <Typography variant="h6"  sx={{textAlign:"center"}}>Offline</Typography>
             </Box>
             <Box
               onClick={() => setOnline(true)}
@@ -315,9 +331,10 @@ export default function CommunityEvent(props) {
                 backgroundColor: online && "#d6d6d6",
                 padding: "0px 5px",
                 cursor: "pointer",
+                width:"50%"
               }}
             >
-              <Typography variant="h6">Online</Typography>
+              <Typography variant="h6" sx={{textAlign:"center"}}>Online</Typography>
             </Box>
           </Box>
           {!online ? (
@@ -359,26 +376,19 @@ export default function CommunityEvent(props) {
             </Box>
           )}
 
-          <label htmlFor="location">
-            <Typography>Start time [only whole hours]:</Typography>
-          </label>
-          <input
-            type="number"
-            id="timeLine"
-            onChange={(e) => setTimeLine(e.target.value)}
-            style={{ border: missing && !timeLine && "1px solid red" }}
-          />
-           <label htmlFor="location">
-            <Typography>Length  of Activity [in hours]:</Typography>
+<CircleLine number={5}/>
+           <label htmlFor="lenght">
+            <Typography variant="h6">Length  of Activity (hours):</Typography>
           </label>
           <input
             type="number"
             id="lenght"
             onChange={(e) => setLengthOA(e.target.value)}
-            style={{ border: missing && !timeLine && "1px solid red" }}
+            style={{ border: missing && !lengthOA && "1px solid red" }}
           />
+<CircleLine number={6}/>
           <label htmlFor="img">
-            <Typography>Images [optional]:</Typography>
+            <Typography variant="h6">Images (optional):</Typography>
           </label>
           <input
             type="file"
@@ -386,8 +396,9 @@ export default function CommunityEvent(props) {
             multiple
             onChange={(e) => setImg(e.target.files)}
           />
+<CircleLine number={7}/>
           <label htmlFor="desc">
-            <Typography>Description:</Typography>
+            <Typography variant="h6">Description:</Typography>
           </label>
           <textarea
             id="desc"
@@ -395,7 +406,9 @@ export default function CommunityEvent(props) {
             style={{ border: missing && !description && "1px solid red" }}
           />
 
-          <Box display={"flex"} gap={2} margin={"10px 0px"}>
+<CircleLine number={8}/>
+<Typography variant="h6" >Participants settings:</Typography>
+          <Box display={"flex"} gap={2} margin={"10px 0px"} width={"100%"}>
             <Box
               onClick={() => setIsLimited((prev) => !prev)}
               sx={{
@@ -403,6 +416,7 @@ export default function CommunityEvent(props) {
                 backgroundColor: isLimited && "#d6d6d6",
                 padding: "0px 5px",
                 cursor: "pointer",
+                width:"50%"
               }}
             >
               <Typography variant="h6" sx={{ textAlign:"center"}}>Limited Participants</Typography>
@@ -414,6 +428,7 @@ export default function CommunityEvent(props) {
                 backgroundColor: !isLimited && "#d6d6d6",
                 padding: "0px 5px",
                 cursor: "pointer",
+                width:"50%"
               }}
             >
             
@@ -428,21 +443,28 @@ export default function CommunityEvent(props) {
               fullWidth={"100%"}
               label="The maximum number of participants:"
             ></TextField>}
+<CircleLine number={9}/>
+            <Typography variant="h6" >Event Type (you can open it later):</Typography>
           <Box
             display={"flex"}
-            justifyContent={"space-between"}
+            justifyContent={"center "}
             alignItems={"center"}
             margin={"10px 0px"}
+            gap={2}
           >
-            <Typography  sx={{ color: "black" }}>
-              Open it for the community [you can do this later as well]
+            <Typography  sx={{ color: "black", width:"35%", textAlign:"end" }}>
+              Closed, Private event 
             </Typography>
             <Switch
               {...label}
               onChange={() => setIsOpen((prev) => !prev)}
               sx={{ backgroundColor: "grey", borderRadius: "10px" }}
             />
+             <Typography  sx={{ color: "black",width:"35%" }}>
+              Open to anyone interested
+            </Typography>
           </Box>
+          <CircleLine number={10}/>
           <Button
             variant="outlined"
             sx={{

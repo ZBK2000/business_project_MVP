@@ -145,7 +145,7 @@ export const AuthContextProvider = ({children}) =>{
           participate,
           organizing,
           count,
-          
+
           setLocation,
           setName,
           setSportType,
@@ -158,6 +158,7 @@ export const AuthContextProvider = ({children}) =>{
           setParticipate,
           setOrganizing,
           setCount
+      
         }}>
             {children}
         </UserContext.Provider>

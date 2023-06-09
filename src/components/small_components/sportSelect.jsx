@@ -123,6 +123,7 @@ const OtherSportMenuItem = ({ onClick }) => {
  import Autocomplete from '@mui/material/Autocomplete';
 import { useState } from 'react';
 import { useEffect } from 'react';
+
  
  const sportsList = [
   { name: 'Soccer' },
@@ -130,73 +131,28 @@ import { useEffect } from 'react';
   { name: 'Baseball' },
   { name: 'Tennis' },
   { name: 'Volleyball' },
-  { name: 'Golf' },
-  { name: 'Swimming' },
-  { name: 'Cycling' },
-  { name: 'Boxing' },
-  { name: 'MMA' },
-  { name: 'Hockey' },
-  { name: 'Football' },
-  { name: 'Rugby' },
-  { name: 'Cricket' },
-  { name: 'Track and Field' },
-  { name: 'Gymnastics' },
-  { name: 'Figure Skating' },
-  { name: 'Skiing' },
-  { name: 'Snowboarding' },
-  { name: 'Ice Skating' },
-  { name: 'Table Tennis' },
-  { name: 'Badminton' },
-  { name: 'Frisbee' },
   { name: 'Hiking' },
-  { name: 'Camping' },
-  { name: 'Rock Climbing' },
-  { name: 'Yoga' },
-  { name: 'Pilates' },
-  { name: 'Zumba' },
-  { name: 'Dancing' },
-  { name: 'Martial Arts' },
-  { name: 'Gym' },
-  { name: 'Jogging' },
-  { name: 'Running' },
-  { name: 'Walking' },
-  { name: 'Swimming Lessons' },
-  { name: 'Cycling Tours' },
+  { name: 'Cycling' },
+  { name: 'Fitness' },
+  { name: 'Swimming' },
   { name: 'Kayaking' },
-  { name: 'Canoeing' },
-  { name: 'Sailing' },
-  { name: 'Surfing' },
-  { name: 'Paddleboarding' },
-  { name: 'Scuba Diving' },
-  { name: 'Snorkeling' },
-  { name: 'Fishing' },
-  { name: 'Photography' },
-  { name: 'Painting' },
-  { name: 'Drawing' },
-  { name: 'Cooking' },
-  { name: 'Board Games' },
-  { name: 'Card Games' },
-  { name: 'Chess' },
-  { name: 'Trivia' },
-  { name: 'Karaoke' },
-  { name: 'Concerts' },
-  { name: 'Movies' },
-  { name: 'Theater' },
-  { name: 'Museums' },
-  { name: 'Art Galleries' },
-  { name: 'Wine Tasting' },
-  { name: 'Beer Tasting' },
-  { name: 'Coffee Shops' },
-  { name: 'Book Clubs' },
-  { name: 'Language Exchange' },
-  { name: 'Volunteering' },
-  { name: 'Charity Events' },
-  { name: 'Networking' },
+  { name: 'Football' },
+  { name: 'Handball' },
+  { name: 'Judo' },
+  { name: 'Hockey' },
+  { name: 'Esports' },
+  { name: 'Running' },
+  {name: "Studying"},
+  {name: "Other"}
+
 ];
 
  
 export default function SportsSelect(props) {
+  
   const [selectedValue, setSelectedValue] = useState(null);
+  const [label, setLabel] = useState(props.sport ? props.sport : 'Choose activity');
+
 
   useEffect(() => {
     setSelectedValue(props.sport); // Set the initial selected value from props
@@ -211,7 +167,9 @@ export default function SportsSelect(props) {
       setSelectedValue(newValue.name) // Set the sport type to the selected value's name
     }
   };
-
+  const handleOnFocus = () => {
+    setLabel('Choose activity');
+  };
   return (
     <Autocomplete
       disablePortal
@@ -220,12 +178,13 @@ export default function SportsSelect(props) {
       sx={{ width:{xs:"100%"}, border:props.missing&&"1px solid red", zIndex:999}}
       getOptionLabel={(option) => option.name} // use the name property of each object
       onChange={handleSelectedValueChange}
-      renderInput={(params) => <TextField {...params} label={"Choose activity"} />}
-      value={selectedValue} // Use the local state for the selected value
-      inputValue={selectedValue ? selectedValue : ''} // Set initial input value to selectedValue.name 
+      renderInput={(params) => <TextField {...params} label={label} onFocus={handleOnFocus}/>}
+       // Use the local state for the selected value
+       // Set initial input value to selectedValue.name 
       
     />
   );
 }
+
 
  

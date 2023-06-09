@@ -63,7 +63,6 @@ const sportsIcons = [
   { name: "Hockey", icon: <SportsHockeyIcon /> },
   { name: "Esports", icon: <SportsEsportsIcon /> },
   { name: "Baseball", icon: <SportsBaseballIcon /> },
-  { name: "Watching", icon: <RemoveRedEyeIcon /> },
   { name: "Studying", icon: <SchoolIcon /> },
   { name: "Running", icon: <DirectionsRunIcon /> },
 ];

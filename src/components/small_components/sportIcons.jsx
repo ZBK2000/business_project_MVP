@@ -17,6 +17,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import SchoolIcon from '@mui/icons-material/School';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import { Box, Grid, Typography } from '@mui/material';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { useState } from 'react';
 
 export default function Sports (props){
@@ -36,9 +37,9 @@ export default function Sports (props){
     {name: 'Hockey', icon: <SportsHockeyIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
     {name: 'Esports', icon: <SportsEsportsIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
     {name: 'Baseball', icon: <SportsBaseballIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
-    {name: 'Watching', icon: <RemoveRedEyeIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
     {name: 'Studying', icon: <SchoolIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
-    {name: 'Running', icon: <DirectionsRunIcon sx={{fontSize:'35px', margin:"0 10px"}}/>}
+    {name: 'Running', icon: <DirectionsRunIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
+    {name: 'Other', icon: <QuestionMarkIcon sx={{fontSize:'35px', margin:"0 10px"}}/>}
   ];
   
   function settingSport(sport){

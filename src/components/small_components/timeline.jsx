@@ -8,13 +8,23 @@ import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
 
 
 export default function TimeLinePicker(props) {
-    const handleDateChange = (date) => {
-        const formattedDate = dayjs(date).format('YYYY-MM-DD');
-        props.getUpData(formattedDate);
-      };
+
+  const handleDateChange = (date) => {
+    const formattedTime = dayjs(date).format('HH:mm');
+    console.log(formattedTime)
+    props.HourMinuteSetter(formattedTime)
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <MobileTimePicker defaultValue={dayjs('2022-04-17T15:30')} onChange={handleDateChange}/>
+      <MobileTimePicker
+        
+        onChange={handleDateChange}
+        sx={{border:props.missing&&"1px solid red"}}
+        renderInput={(props) => (
+          <TextField {...props} value={props.value ? dayjs(props.value).format('HH:mm') : ''} />
+        )}
+      />
     </LocalizationProvider>
   );
 }
