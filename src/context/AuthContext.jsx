@@ -18,7 +18,8 @@ export const AuthContextProvider = ({children}) =>{
   const [paid, setPaid] = useState(false)
   const [unlimited, setUnlimited] = useState(false)
   const [participate, setParticipate] = useState("")
-  const [organizing, setOrganizing] = useState("")  
+  const [organizing, setOrganizing] = useState("") 
+  const [community, setCommunity] = useState(true); 
 
   const [count, setCount] = useState(null)
 
@@ -145,6 +146,7 @@ export const AuthContextProvider = ({children}) =>{
           participate,
           organizing,
           count,
+          community,
 
           setLocation,
           setName,
@@ -157,7 +159,8 @@ export const AuthContextProvider = ({children}) =>{
           setUnlimited,
           setParticipate,
           setOrganizing,
-          setCount
+          setCount,
+          setCommunity
       
         }}>
             {children}

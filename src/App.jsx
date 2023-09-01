@@ -8,6 +8,7 @@ import Help from "./components/Main_components/Help";
 import CustomLink from "./components/Main_components/CustomLink";
 import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import CertainTrack2 from "./components/Main_components/CertainTrack copy";
 
 function App() {
   //declaring states and  consts
@@ -40,6 +41,19 @@ function App() {
               <Route path="/needtologin" element={<NeedToLogIn />} />
               <Route path="/help" element={<Help />} />
               <Route path="/tracks/:id/:hashcode" element={<CustomLink />} />
+              <Route
+              path="/tracks/:id/2"
+              element={
+              
+                  <CertainTrack2
+                    allTrack={tracks}
+                    getDownData={success}
+                    getDownData2={name}
+                    /* getDownData3={slots}  */ //getUpData={setChange}
+                  />
+              
+              }
+            />
             </Routes>
           </div>
         </div>

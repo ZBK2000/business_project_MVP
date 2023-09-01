@@ -24,7 +24,7 @@ export default function Filter(props) {
   //declaring states and consts
 
   const [expanded, setExpanded] = React.useState(false);
-  const { user } = UserAuth();
+  const { user, community, setCommunity } = UserAuth();
   const [verifyEmail, setVerifyEmail] = React.useState(false)
 
   const [userInfo, setUserInfo] = React.useState("")
@@ -160,8 +160,26 @@ if(expanded){
 
   return (
     <Box display={"flex"} justifyContent={"center"} flexDirection={"column"} alignItems={"center"} maxWidth={"100%"}>
-    <Box className="mainPanel" sx={{ margin: "8px", marginBottom:"25px", "& > :not(style)": { m: 1 }, width:"50%",minWidth:"1030px", borderRadius:"30px", display:{md:"flex", xs:"none"}, justifyContent:"center", alignItems:"center", height:"50px" }}>
-        
+    <Box className="mainPanel" sx={{ margin: "8px", marginBottom:"25px", "& > :not(style)": { m: 1 }, width:"60%",minWidth:"1150px", borderRadius:"30px", display:{md:"flex", xs:"none"}, justifyContent:"center", alignItems:"center", height:"50px" }}>
+    <Fab  /*onClick={()=>navigate("/communityEvent")}*/ onClick={user?user.emailVerified?()=>props.setShowEventForm(true):()=>setVerifyEmail(true):()=>props.setShowRegister(true)} margin={"15px !important"} sx={{height:"80%", margin:"10px", backgroundColor:'green',color:"#0BF763", "&:hover":{backgroundColor:'#2f9b14'}}} variant="extended">
+        Organize an event <AddIcon sx={{color:"#0BF763"}}/>
+      </Fab>
+            <Fab variant="extended" onClick={()=>setCommunity(prev=>!prev)}  sx={{height:"80%", margin:"10px",backgroundColor:"#ffffff",color:!community&&"green",width:"170px"}}>Partners {!community&&<CheckCircleOutlineIcon sx={{
+          position: 'absolute',
+          top: '0',
+          right: '0',
+          backgroundColor: 'green !important',
+          color: 'white !important',
+          width: '20px',
+          height: '20px',
+          minWidth: '0',
+          borderRadius: '50%',
+          fontSize: '10px',
+          fontWeight: 'bold',
+          minHeight:'0px'
+        }}/>} </Fab>
+      
+
       <Fab  sx={{height:"80%", margin:"10px",backgroundColor:"#ffffff", width:"170px", position:"relative"}} onClick={handleExpandClick} variant="extended">
         Filters {count&&<Fab  disabled  sx={{
           position: 'absolute',
@@ -180,9 +198,7 @@ if(expanded){
       </Fab>
  
       <Fab margin={"15px !important"} sx={{height:"80%", margin:"10px",backgroundColor:"#ffffff",width:"170px"}} variant="extended" onClick={props.mapViewFunc}>{!props.mapView?"Show map view":"Show detailed view"}</Fab>
-      <Fab  /*onClick={()=>navigate("/communityEvent")}*/ onClick={user?user.emailVerified?()=>props.setShowEventForm(true):()=>setVerifyEmail(true):()=>props.setShowRegister(true)} margin={"15px !important"} sx={{height:"80%", margin:"10px", backgroundColor:'green',color:"#0BF763", "&:hover":{backgroundColor:'#2f9b14'}}} variant="extended">
-        Organize an event <AddIcon sx={{color:"#0BF763"}}/>
-      </Fab>
+     
       
       <Fab margin={"15px !important"} sx={{height:"80%", margin:"10px",backgroundColor:"#ffffff",color:organizing.length>0&&"green",width:"170px"}} variant="extended" onClick={organizing.length?()=>findOrganizedEvents(true): ()=>findOrganizedEvents(false)}>I'm the organizer {organizing.length>0&&<CheckCircleOutlineIcon sx={{
           position: 'absolute',
@@ -216,10 +232,27 @@ if(expanded){
       </Box>
 
       <Box className="mainPanel" sx={{ margin: "8px", marginBottom:"25px", "& > :not(style)": { m: 1 }, borderRadius:"30px", display:{md:"none", xs:"flex"},flexDirection:"column", justifyContent:"center", alignItems:"center", width:"100%" }}>
-      <Fab  /*onClick={()=>navigate("/communityEvent")}*/ onClick={user?user.emailVerified?()=>props.setShowEventForm(true):()=>setVerifyEmail(true):()=>props.setShowRegister(true)} margin={"15px !important"} sx={{ margin:"10px", backgroundColor:'green',color:"#0BF763", "&:hover":{backgroundColor:'#2f9b14'}}} variant="extended">
+      <Box display={"flex"}>
+      <Fab  /*onClick={()=>navigate("/communityEvent")}*/ onClick={user?user.emailVerified?()=>props.setShowEventForm(true):()=>setVerifyEmail(true):()=>props.setShowRegister(true)} margin={"15px !important"} sx={{ margin:"10px",width:"160px", backgroundColor:'green',color:"#0BF763", "&:hover":{backgroundColor:'#2f9b14'}}} variant="extended">
         Organize an event <AddIcon sx={{color:"#0BF763"}}/>
       </Fab>
+      <Fab variant="extended" onClick={()=>setCommunity(prev=>!prev)}  sx={{ margin:"10px",backgroundColor:"#ffffff",color:!community&&"green",width:"160px"}}>Partners {!community&&<CheckCircleOutlineIcon sx={{
+          position: 'absolute',
+          top: '0',
+          right: '0',
+          backgroundColor: 'green !important',
+          color: 'white !important',
+          width: '20px',
+          height: '20px',
+          minWidth: '0',
+          borderRadius: '50%',
+          fontSize: '10px',
+          fontWeight: 'bold',
+          minHeight:'0px'
+        }}/>} </Fab> 
+        </Box>
       <Box display={"flex"}>
+        
       <Fab  sx={{ margin:"10px",backgroundColor:"#ffffff", width:"160px"}} onClick={handleExpandClick} variant="extended">
         Filters {count&&<Fab  disabled  sx={{
           position: 'absolute',

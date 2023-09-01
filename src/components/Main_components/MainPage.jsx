@@ -12,7 +12,7 @@ import Filter from "./Filter";
 import { useEffect } from "react";
 import { useTheme } from "@emotion/react";
 import { UserAuth } from "../../context/AuthContext";
-import { Box, Grid } from "@mui/material";
+import { Box, Fab, Grid } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useMemo } from "react";
@@ -46,6 +46,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Help from "./Help";
+
 
 const sportsIcons = [
   { name: "Soccer", icon: <SportsSoccerIcon /> },
@@ -86,11 +87,13 @@ export default function MainPage(props) {
 
   const [showEventForm, setShowEventForm] = useState(false);
   const [currentSport, setCurrentSport] = useState("");
-  const [community, setCommunity] = useState(true);
+
   const [isMoreLink, setIsMoreLink] = useState(true);
   const [isMoreTrack, setIsMoreTrack] = useState(true);
   const [newFilterSet, setNewFilterSet] = useState(false);
   const [shouldFetch, setShouldFetch] = useState(true);
+  const { community, setCommunity } = UserAuth();
+ 
 
 
 
@@ -118,9 +121,12 @@ export default function MainPage(props) {
       : props.allLinks;
   let activityCounter = 0;
   console.log(validLinks, props.allLinks);
+
   const liveActivities = props.allLinks.map(function (item, index) {
+    
     if (item.isopen || !item.isopen) {
-      const date_components = item.time.split(" ");
+      
+      const date_components = item.time.split(" ") ;
       const date = date_components[0];
       const time_interval = date_components[1];
 
@@ -195,9 +201,9 @@ export default function MainPage(props) {
                     : "",
                 }}
                 onClick={
-                  user
-                    ? () => navigate(`/tracks/${item.name}/${item._id}`)
-                    : () => setShowRegister(true)
+                
+                     () => navigate(`/tracks/${item.name}/${item._id}`)
+                    
                 }
               >
                 {activity_start_datetime <= current_datetime && (
@@ -211,6 +217,7 @@ export default function MainPage(props) {
                       backgroundColor: "#dcdcdc",
                       color: "green",
                       padding: "5px",
+                      fontSize: "11px"
                     }}
                   >
                     {" "}
@@ -228,6 +235,7 @@ export default function MainPage(props) {
                       backgroundColor: "black",
                       color: "white",
                       padding: "5px",
+                      fontSize: "11px"
                     }}
                   >
                     {" "}
@@ -358,7 +366,7 @@ export default function MainPage(props) {
                  
                   
                 />
-                <CardContent className="tooltip  ">
+                <CardContent className="tooltip  " sx={{maxWidth:"57%"}}>
                   <Typography
                     gutterBottom
                     variant="h5"
@@ -398,9 +406,157 @@ export default function MainPage(props) {
     }
   });
 
+  const liveActivities2 = props.allTrack.map(function (item, index) {
+    console.log(item)
+    const foundItem = sportsIcons.find(
+      (item1) => item1.name === item.activity
+    );
+      
+
+        if (item.latAndLong) {
+          try {
+            // Check if latAndLong already exists in allLocation2
+            const existingLocation = allLocation2.find(location => location[0][0] === item.latAndLong[0] && location[0][1] === item.latAndLong[1]);
+        
+            if (existingLocation) {
+              // Add item._id and item.trackName to the existing location
+              existingLocation[1].push(item._id);
+              existingLocation[2].push(item.trackName);
+            } else {
+              // Create a new entry for latAndLong
+              allLocation2.push([item.latAndLong, [item._id], [item.trackName]]);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+
+        return (
+          <Grid
+            item
+            padding={"8px !important"}
+         
+            xl={12}
+            key={item._id}
+            sx={{ cursor: "pointer" }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              
+            >
+              <Box display={"flex"} justifyContent={"center"} sx={{width:"100%"}} position={"relative"}>
+                <Box sx={{backgroundColor:"#D8D9DA", width:{xs:"90%",md:"70%"}, borderRadius:"10px", position:"relative"}}  display={"flex"} flexDirection={{xs:"column", md:"row"}} justifyContent={"center"} alignItems={"center"}>
+                {foundItem && (
+                  <Box
+                    sx={{
+                     position: "absolute",
+                     left:{md:"1%",xs:"7%"},
+                     top:{md:"8%",xs:"77%"},
+                      color: "white",
+                   
+                      backgroundColor: "#a2a1a196",
+                      borderRadius: "10px",
+                      padding: "5px",
+                      display:"flex",
+                      alignItems:"center",
+                      justifyContent:"center",
+                      
+                    }}
+                  >
+                    {foundItem.icon}
+                  </Box>
+                )}
+
+<Typography
+                    sx={{
+                     position: "absolute",
+                     left:{md:"1%",xs:"18%"},
+                     top:{md:"20%",xs:"77%"},
+                      
+                   
+                      
+                      
+                      
+                      
+                    }}
+                  >
+                    reviews: 4.7/5
+                  </Typography>
+              <Card
+                className="tracks"
+                sx={{
+                  backgroundColor: theme.palette.secondary.main,
+                  width:"500px",
+                  position: "relative",
+                 
+                }}
+                onClick={
+                  
+                     () => navigate(`/tracks/${item.name}/2`)}
+                    
+              >
+
+               
+            
+         
+                <CardMedia
+                  component="img"
+                  sx={{ height: 140, backgroundColor:"#e1dfdf" }}
+                  src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${
+                    item._id
+                  }&number=${0}&event=${true}`}
+                 
+                  
+                />
+                <CardContent className="tooltip  ">
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    sx={{
+                      overflow: "hidden",
+                      whiteSpace: "nowrap",
+                      textOverflow: "ellipsis",
+                      maxWidth: "250px",
+                    }}
+                  >
+                    {item.name}{" "}
+                    <span class="tooltiptext">{item.name} </span>
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {item?.city ? item.city : "-"}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {item.time}
+                  </Typography>
+
+                  <Typography variant="body2" color="text.secondary">
+                  {item.slot_number.join('P, ')}P
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {item.activity}
+                  </Typography>
+                </CardContent>
+              </Card>
+              <Box sx={{padding:"30px"}}>
+              <Typography sx={{width:"345px"}} variant="h6">{item.description}</Typography>
+              </Box>
+              </Box>
+              </Box>
+            </motion.div>
+          </Grid>
+        );
+      
+      //}
+    
+  });
+
   const loadMore = async (filter = false) => {
     const count = props.allLinks.length;
     const count2 = props.allTrack.length;
+    console.log(count, count2, community, filterItems)
     try {
       //setTimeout( async()=>{
       const response = await fetch(
@@ -413,11 +569,12 @@ export default function MainPage(props) {
           },
         }
       );
+      console.log("ll")
       const data = await response.json();
       if (community) {
         if (data.allLinks.length) {
           if (filter) {
-            props.allLinksSetter([data.allLinks]);
+            props.allLinksSetter([...data.allLinks]);
           } else {
             props.allLinksSetter((prev) => [...prev, ...data.allLinks]);
           }
@@ -434,36 +591,49 @@ export default function MainPage(props) {
       //  },2000)
     } catch (error) {
       console.error(error);
+      console.log("eroor")
     }
   };
   console.log(props.allLinks.length, props.allTrack.length);
   useEffect(() => {
+    
+   
     if(isFirstRender.current) {
-  
+    
       isFirstRender.current=false
     }
      else{
-    
-    if(!community && !props.allTrack.length){
-  
+      
+    if(!community){
+  console.log("zz")
       loadMore();
-    } else if(community && !props.allLinks.length){
+    } else if(community){
+      console.log("zzdd")
+     
       loadMore();
     }
   }}, [community,newFilterSet]);
   
   useEffect(() => {
-  
+    if(isFirstRender.current) {
+    
+      isFirstRender.current=false
+    }
+     else{
+  console.log("mmmxx")
     props.allTracksSetter(prev=>prev=[])
     props.allLinksSetter(prev=>prev=[])
     setIsMoreLink(true)
     setIsMoreTrack(true)
     setNewFilterSet(prev=>!prev)
+    
+    
+    
   
   
   
     
-  }, [ filterItems]);
+  }}, [ filterItems]);
 
   
 
@@ -486,7 +656,7 @@ export default function MainPage(props) {
       />
       <Grid width={"95%"}>
         <Sports setCurrentSport={setCurrentSport} sport={currentSport} />
-
+        
         <Grid display={"flex"} alignItems={"center"}>
           {/* <Button margin={"15px !important"} sx={{height:"80%", margin:"10px"}} variant="contained" onClick={showFavourite}>{favouriteData.length ===0 ?"show favourites only":"show all"}</Button>
       <Button margin={"15px !important"} sx={{height:"80%", margin:"10px"}} variant="contained" onClick={mapViewFunc}>{!mapView?"Show map view":"Show detailed view"}</Button>
@@ -494,6 +664,7 @@ export default function MainPage(props) {
         <TelegramIcon sx={{color:"#0BF763"}}/> Let's organize an event</Button>  */}
         </Grid>
         <Box display={"flex"} justifyContent={"center"}>
+      
           <Filter
             
             
@@ -517,8 +688,8 @@ export default function MainPage(props) {
               scrollThreshold={0.9}
               loader={<Loading />}
               next={loadMore}
-              dataLength={props.allLinks.length}
-              hasMore={isMoreLink}
+              dataLength={community?props.allLinks.length:props.allTrack.length}
+              hasMore={community?isMoreLink:isMoreTrack}
             >
               {" "}
               <Grid
@@ -533,7 +704,7 @@ export default function MainPage(props) {
                 spacing={2}
                 className="container"
               >
-                {liveActivities}
+                {community?liveActivities:liveActivities2}
               </Grid>{" "}
             </InfiniteScroll>
           </Grid>
