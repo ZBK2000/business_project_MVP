@@ -19,6 +19,10 @@ import Players from "../small_components/players";
 
 import StaticDatePickerLandscape from "../small_components/NextSevenDay copy";
 import { toast } from "react-toastify";
+import VerifyEmail from "../Smaller_Pop_ups/verifyEmail";
+import LoginWithFirebase from "../Forms/loginWithFirebase";
+import UserRegisterWithFirebase from "../Forms/UserRegisterWithFirebase";
+import ProvideUserName from "../Smaller_Pop_ups/ProvideUserName";
 
 
 export default function CertainTrack2(props) {
@@ -54,6 +58,10 @@ export default function CertainTrack2(props) {
   const [timeInterval, setTimeInterval] = useState(0)
   const [players, setPlayers] = useState(false)
   const [imageIndicator, setImageIndicator] = useState(false)
+  const [verifyEmail, setVerifyEmail] = useState(false)
+  const [showLogin, setShowLogin] = useState(false)
+  const [showRegister, setShowRegister] = useState(false)
+  const [provideUserName, setProvideUserName] = useState(false)
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -448,7 +456,7 @@ console.log(timeInterval)
                 <Box sx={{borderRadius:"10px",backgroundColor:"#ffffff",width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center"}}><Typography>I'M INTERESTED TO PLAY AT THAT TIME</Typography></Box>*/}
                 <Button  onClick={()=>setPlayers(true)} sx={{borderRadius:"10px", width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center", color:"black",backgroundColor:"#ffffff","&:hover": {
           backgroundColor: "white"}}}>CHECK THE PLAYERS WHO ARE INTERESTED</Button>
-                <Button    onClick={() => handleClick(timeInterval, subTrackName, city, sportType) }
+                <Button    onClick={user?user.emailVerified?() => handleClick(timeInterval, subTrackName, city, sportType):()=>setVerifyEmail(true) :() => setShowRegister(true)}
                 sx={{borderRadius:"10px", width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center", backgroundColor:"#ffffff", color:"black", borderColor:"#e0e0e0", "&:hover": {
           backgroundColor: "white"}}}>I'M INTERESTED TO PLAY AT THAT TIME</Button>
               </Box>
@@ -458,7 +466,7 @@ console.log(timeInterval)
               <Box display={"flex"} justifyContent={"space-around"} sx={{padding:"10px"}}>
                 <Box sx={{borderRadius:"10px",width:"40%",padding:"10px 0px", display:"flex" ,alignItems:"center", justifyContent:"center"}}><Typography>Do you want to organize a match with your friends in a closed event?</Typography> </Box> 
                 {/*<Box sx={{borderRadius:"10px",backgroundColor:"#ffffff",width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center"}}><Typography>ORGANIZE A MATCH IN THIS TIMESLOT</Typography></Box>*/}
-                <Button  onClick={()=>generateRandomLinkPath(id, slot_number, location,h3s.find((obj) => obj.id === timeInterval)?.text, rightDay, nameOfUser, subTrackName, city, nameOfUser, img_urls, sportType)} sx={{borderRadius:"10px", width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center", backgroundColor:"#ffffff", color:"black", "&:hover": {
+                <Button  onClick={user?user.emailVerified?()=>generateRandomLinkPath(id, slot_number, location,h3s.find((obj) => obj.id === timeInterval)?.text, rightDay, nameOfUser, subTrackName, city, nameOfUser, img_urls, sportType):()=>setVerifyEmail(true):() => setShowRegister(true)} sx={{borderRadius:"10px", width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center", backgroundColor:"#ffffff", color:"black", "&:hover": {
           backgroundColor: "white"}}}>ORGANIZE A MATCH IN THIS TIMESLOT</Button>
               </Box>
             </Box>
@@ -510,7 +518,10 @@ console.log(timeInterval)
             </Grid>
             </Box>}{" "}
       {players && <Players indicator={setPlayers} h3s={h3s} id={timeInterval}/>}
-      
+      {verifyEmail && <VerifyEmail indicator={setVerifyEmail}/>}
+     {showLogin &&<LoginWithFirebase indicator={setShowLogin}/>} 
+     {showRegister &&<UserRegisterWithFirebase indicator={setShowRegister} indicatorforLogin={setShowLogin} setProvideUserName={setProvideUserName}/>}
+     {provideUserName && <ProvideUserName indicator={setProvideUserName}/>}
       </div>)}
 
 

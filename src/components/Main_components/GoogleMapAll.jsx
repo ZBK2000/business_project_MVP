@@ -19,11 +19,13 @@ function MapContainer(props) {
   const {user} = UserAuth()
    console.log(props.tracks)
   function navigateToTrack (id, name){
-    if (user) {
+    if (props.community){
+
       navigate(`/tracks/${name}/${id}`);
     } else {
-      props.setShowRegister(true)
+      navigate(`/tracks/${name}/2`);
     }
+   
   }
   const [hoveredMarker, setHoveredMarker] = useState(null);
   const [center, setCenter] = useState({ lat: 47.4979, lng: 19.0402 })

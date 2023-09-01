@@ -405,7 +405,7 @@ export default function MainPage(props) {
       //}
     }
   });
-
+  const allLocation3 = []
   const liveActivities2 = props.allTrack.map(function (item, index) {
     console.log(item)
     const foundItem = sportsIcons.find(
@@ -415,16 +415,16 @@ export default function MainPage(props) {
 
         if (item.latAndLong) {
           try {
-            // Check if latAndLong already exists in allLocation2
-            const existingLocation = allLocation2.find(location => location[0][0] === item.latAndLong[0] && location[0][1] === item.latAndLong[1]);
+            // Check if latAndLong already exists in allLocation3
+            const existingLocation = allLocation3.find(location => location[0][0] === item.latAndLong[0] && location[0][1] === item.latAndLong[1]);
         
             if (existingLocation) {
               // Add item._id and item.trackName to the existing location
               existingLocation[1].push(item._id);
-              existingLocation[2].push(item.trackName);
+              existingLocation[2].push(item.name);
             } else {
               // Create a new entry for latAndLong
-              allLocation2.push([item.latAndLong, [item._id], [item.trackName]]);
+              allLocation3.push([item.latAndLong, [item._id], [item.name]]);
             }
           } catch (error) {
             console.log(error);
@@ -504,9 +504,8 @@ export default function MainPage(props) {
                 <CardMedia
                   component="img"
                   sx={{ height: 140, backgroundColor:"#e1dfdf" }}
-                  src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${
-                    item._id
-                  }&number=${0}&event=${true}`}
+                  src=
+                  {`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${item.id}&number=0`}
                  
                   
                 />
@@ -711,8 +710,8 @@ export default function MainPage(props) {
         ) : (
           <MapContainer
             setShowRegister={setShowRegister}
-            locations={allLocation2}
-            tracks={validLinks}
+            locations={community?allLocation2:allLocation3}
+            tracks={community?validLinks:props.allTrack}
             center={filterItems ? filterItems[2] : "Budapest"}
           />
         )}
