@@ -95,9 +95,15 @@ export default function Help(props) {
             <li>SOON! more Date avaliability for events, recurring options</li>
             </Typography>
             <Typography margin={"10px"} variant="h6">
-            <li> If you have any question or suggestion, please contact us
-              businessTest@outlook.hu</li>
+            <Typography margin={"10px"} variant="h6">
+            <li> we have partners, from where you can organize an event to its free timelines with one click</li>
             </Typography>
+            <li>Our current partners are just examples, not real, we are working on it, if you want to partner with us, to register 
+              your venue/location/business or if you have any question or suggestion, please contact us
+              businessTest@outlook.hu
+            </li>
+            </Typography>
+           
           </Grid>
         </Box>
       </motion.div>
