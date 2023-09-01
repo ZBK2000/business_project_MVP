@@ -5,10 +5,12 @@ import PersonIcon from '@mui/icons-material/Person';
 export default function  Players(props) {
 console.log(props.h3s,props.id, "haha")
 let players = []
+let rigthTimeLine
 for(let h3 in props.h3s){
     if(props.h3s[h3].id ===props.id){
         console.log("hello")
         players = props.h3s[h3].slots
+        rigthTimeLine = props.h3s[h3].text
     }
 }
 console.log(players)
@@ -30,6 +32,7 @@ return (
     <Box sx={{width:"300px", backgroundColor:"white", borderRadius:"10px", padding:"10px"}}
     >
   <Typography variant="h4">Joined Players</Typography>
+  <Typography variant="h4">On {props.subTrack} at {props.day} {rigthTimeLine}</Typography>
   <List>
   {players.map((slot) => (
     <ListItem sx={{ margin: "0px" }} className="slots-list-element">

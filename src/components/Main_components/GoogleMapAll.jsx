@@ -152,7 +152,7 @@ function MapContainer(props) {
       <CardContent>
       
         <Typography gutterBottom variant="h5" component="div">
-          {hoveredTrack.trackName}
+          {props.community?hoveredTrack.trackName:hoveredTrack.trackName}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {hoveredTrack.location}

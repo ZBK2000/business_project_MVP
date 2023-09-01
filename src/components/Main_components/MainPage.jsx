@@ -505,7 +505,7 @@ export default function MainPage(props) {
                   component="img"
                   sx={{ height: 140, backgroundColor:"#e1dfdf" }}
                   src=
-                  {`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${item.id}&number=0`}
+                  {`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${item.name}&number=0`}
                  
                   
                 />
@@ -713,6 +713,7 @@ export default function MainPage(props) {
             locations={community?allLocation2:allLocation3}
             tracks={community?validLinks:props.allTrack}
             center={filterItems ? filterItems[2] : "Budapest"}
+            community={community}
           />
         )}
 

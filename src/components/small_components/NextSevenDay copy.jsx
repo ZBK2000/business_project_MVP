@@ -13,7 +13,7 @@ export default function StaticDatePickerCollapsible(props) {
   return (
     <LocalizationProvider  dateAdapter={AdapterDayjs}>
       <DatePicker
-      sx={{border:props.missing&&"1px solid red", zIndex:1000, margin:{xs:"10px",md:"0px"}}}
+      sx={{border:props.missing&&"1px solid red", zIndex:1000, margin:{xs:"10px",md:"10px 0px"}}}
       onChange={handleDateChange}
        PopperProps={{
         style: { zIndex: 1000 } // Set a higher z-index for the pop-up calendar

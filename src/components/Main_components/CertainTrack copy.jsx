@@ -52,10 +52,10 @@ export default function CertainTrack2(props) {
   const [lastClickedId, setLastClickedId] = useState(null);
   const [errorhandler, setErrorHandler] = useState("");
   const [expanded, setExpanded] = useState("");
-  const [subTrack, setSubTrack] = useState("")
+  const [subTrack, setSubTrack] = useState(0)
   const [privateTeamIndicator, setPrivateTeamIndicator] = useState(false)
   const [isFreePlace, setIsFreePlace] = useState(true)
-  const [timeInterval, setTimeInterval] = useState(0)
+  const [timeInterval, setTimeInterval] = useState(1)
   const [players, setPlayers] = useState(false)
   const [imageIndicator, setImageIndicator] = useState(false)
   const [verifyEmail, setVerifyEmail] = useState(false)
@@ -134,6 +134,7 @@ export default function CertainTrack2(props) {
   };
 
   const { id } = useParams();
+  console.log(id)
 
   //we descruture the track object which contains all sport location and its data and only taking the appropriate data for this particular field
   let desc;
@@ -517,7 +518,7 @@ console.log(timeInterval)
   bottom: "45%", fontSize:"45px", color:"#f5f5f5", "&:hover":{ fontSize:"50px", color:"#d1d1d1"}}} />
             </Grid>
             </Box>}{" "}
-      {players && <Players indicator={setPlayers} h3s={h3s} id={timeInterval}/>}
+      {players && <Players indicator={setPlayers} h3s={h3s} id={timeInterval} day={rightDay} subTrack={subtrackNames[subTrack]}/>}
       {verifyEmail && <VerifyEmail indicator={setVerifyEmail}/>}
      {showLogin &&<LoginWithFirebase indicator={setShowLogin}/>} 
      {showRegister &&<UserRegisterWithFirebase indicator={setShowRegister} indicatorforLogin={setShowLogin} setProvideUserName={setProvideUserName}/>}
