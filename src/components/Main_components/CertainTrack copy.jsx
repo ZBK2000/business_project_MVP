@@ -23,6 +23,7 @@ import VerifyEmail from "../Smaller_Pop_ups/verifyEmail";
 import LoginWithFirebase from "../Forms/loginWithFirebase";
 import UserRegisterWithFirebase from "../Forms/UserRegisterWithFirebase";
 import ProvideUserName from "../Smaller_Pop_ups/ProvideUserName";
+import GoogleMapIndividual from "../small_components/staticGoogleMap";
 
 
 export default function CertainTrack2(props) {
@@ -149,6 +150,7 @@ export default function CertainTrack2(props) {
   let img_urls
   let sportType
   let latAndLong
+  let onlineLink
   try { 
     for (let track in props.allTrack) {
       if (props.allTrack[track].name == id) {
@@ -472,8 +474,14 @@ console.log(timeInterval)
               </Box>
             </Box>
             </Box>
-            <Box>
+            <Box display={"flex"} flexDirection={{xs:"column",md:"row"}} gap={3} marginTop={"30px"}>
             <RatingSlide title={id}/>
+            <Box sx={{width:{md:"50%"}}}>
+        {latAndLong?<GoogleMapIndividual coordinates={latAndLong}/>:onlineLink? 
+        <Box><Typography variant='h5'>Link:</Typography>
+        <Link sx={{color:"black", cursor:"pointer", fontSize:"22px"}}>{onlineLink}</Link></Box>:""}
+        
+        </Box>
             </Box>
       </Grid>
      {imageIndicator&& <Box  onClick={()=>setImageIndicator(false)} sx={{

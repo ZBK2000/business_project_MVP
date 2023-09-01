@@ -91,7 +91,8 @@ function RatingSlide(props) {
       backgroundColor:'#e1e1e1',
       overflow: 'auto',
       borderRadius:"15px",
-      margin:{md:"35px 0px",xs:"15px 10px"}
+      margin:{md:"0px 0px",xs:"15px 10px"},
+      width:{md:"50%"}
       }}
       
     item

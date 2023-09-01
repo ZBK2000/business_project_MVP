@@ -146,13 +146,14 @@ function MapContainer(props) {
       <CardMedia
         component="img"
         sx={{ height: 140 }}
-        src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${hoveredTrack._id}&number=${0}&event=${true}`}
+        src={props.community?`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${hoveredTrack._id}&number=${0}&event=${true}`:
+        `${import.meta.env.VITE_BACKEND_URL}/img?user_id=${hoveredTrack.name}&number=${0}`}
         title=""
       />
       <CardContent>
       
         <Typography gutterBottom variant="h5" component="div">
-          {props.community?hoveredTrack.trackName:hoveredTrack.trackName}
+          {props.community?hoveredTrack.trackName:hoveredTrack.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {hoveredTrack.location}
