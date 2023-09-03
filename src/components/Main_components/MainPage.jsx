@@ -478,7 +478,7 @@ export default function MainPage(props) {
                 <Box display={"flex"} flexDirection={{xs:"column", md:"row"}} justifyContent={"center"} height={{md:"300px"}}>
                 <CardMedia
                   component="img"
-                  sx={{ height:{md: "100%", xs:"140px"}, backgroundColor:"#e1dfdf"}}
+                  sx={{ height:{md: "100%", xs:"200px"}, backgroundColor:"#e1dfdf"}}
                   src=
                   {`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${item.name}&number=0`}
                  
