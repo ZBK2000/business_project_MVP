@@ -180,7 +180,7 @@ if(expanded){
         }}/>} </Fab>
       
 
-      <Fab  sx={{height:"80%", margin:"10px",backgroundColor:"#ffffff", width:"170px", position:"relative"}} onClick={handleExpandClick} variant="extended">
+      <Fab disabled={!community&&true} sx={{height:"80%", margin:"10px",backgroundColor:"#ffffff", width:"170px", position:"relative"}} onClick={handleExpandClick} variant="extended">
         Filters {count&&<Fab  disabled  sx={{
           position: 'absolute',
           top: '0',
@@ -200,7 +200,7 @@ if(expanded){
       <Fab margin={"15px !important"} sx={{height:"80%", margin:"10px",backgroundColor:"#ffffff",width:"170px"}} variant="extended" onClick={props.mapViewFunc}>{!props.mapView?"Show map view":"Show detailed view"}</Fab>
      
       
-      <Fab margin={"15px !important"} sx={{height:"80%", margin:"10px",backgroundColor:"#ffffff",color:organizing.length>0&&"green",width:"170px"}} variant="extended" onClick={organizing.length?()=>findOrganizedEvents(true): ()=>findOrganizedEvents(false)}>I'm the organizer {organizing.length>0&&<CheckCircleOutlineIcon sx={{
+      <Fab disabled={!community&&true} margin={"15px !important"} sx={{height:"80%", margin:"10px",backgroundColor:"#ffffff",color:organizing.length>0&&"green",width:"170px"}} variant="extended" onClick={organizing.length?()=>findOrganizedEvents(true): ()=>findOrganizedEvents(false)}>I'm the organizer {organizing.length>0&&<CheckCircleOutlineIcon sx={{
           position: 'absolute',
           top: '0',
           right: '0',
@@ -214,7 +214,7 @@ if(expanded){
           fontWeight: 'bold',
           minHeight:'0px'
         }}/>}</Fab>
-      <Fab margin={"15px !important"} sx={{height:"80%", margin:"10px",backgroundColor:"#ffffff",color:participate.length>0&&"green",width:"170px"}} variant="extended" onClick={participate.length?()=>findPartcipatedEvents(true): ()=>findPartcipatedEvents(false)}>I participate
+      <Fab disabled={!community&&true} margin={"15px !important"} sx={{height:"80%", margin:"10px",backgroundColor:"#ffffff",color:participate.length>0&&"green",width:"170px"}} variant="extended" onClick={participate.length?()=>findPartcipatedEvents(true): ()=>findPartcipatedEvents(false)}>I participate
       {participate.length>0&&<CheckCircleOutlineIcon sx={{
           position: 'absolute',
           top: '0',
@@ -253,7 +253,7 @@ if(expanded){
         </Box>
       <Box display={"flex"}>
         
-      <Fab  sx={{ margin:"10px",backgroundColor:"#ffffff", width:"160px"}} onClick={handleExpandClick} variant="extended">
+      <Fab disabled={!community&&true} sx={{ margin:"10px",backgroundColor:"#ffffff", width:"160px"}} onClick={handleExpandClick} variant="extended">
         Filters {count&&<Fab  disabled  sx={{
           position: 'absolute',
           top: '0',
@@ -273,7 +273,7 @@ if(expanded){
       <Fab margin={"15px !important"} sx={{ margin:"10px",backgroundColor:"#ffffff",width:"160px"}} variant="extended" onClick={props.mapViewFunc}>{!props.mapView?"Show map view":"Show detailed view"}</Fab>
       </Box>
       <Box display={"flex"}>
-      <Fab margin={"15px !important"} sx={{ margin:"10px",backgroundColor:"#ffffff",color:organizing.length>0&&"green",width:"160px"}} variant="extended" onClick={organizing.length>0?()=>findOrganizedEvents(true): ()=>findOrganizedEvents(false)}>I'm the organizer  {organizing.length>0&&<CheckCircleOutlineIcon sx={{
+      <Fab disabled={!community&&true} margin={"15px !important"} sx={{ margin:"10px",backgroundColor:"#ffffff",color:organizing.length>0&&"green",width:"160px"}} variant="extended" onClick={organizing.length>0?()=>findOrganizedEvents(true): ()=>findOrganizedEvents(false)}>I'm the organizer  {organizing.length>0&&<CheckCircleOutlineIcon sx={{
           position: 'absolute',
           top: '0',
           right: '0',
@@ -287,7 +287,7 @@ if(expanded){
           fontWeight: 'bold',
           minHeight:'0px'
         }}/>}</Fab>
-      <Fab margin={"15px !important"} sx={{ margin:"10px",backgroundColor:"#ffffff",color:participate.length>0&&"green",width:"160px"}} variant="extended" onClick={participate.length>0?()=>findPartcipatedEvents(true): ()=>findPartcipatedEvents(false)}>I participate
+      <Fab disabled={!community&&true} margin={"15px !important"} sx={{ margin:"10px",backgroundColor:"#ffffff",color:participate.length>0&&"green",width:"160px"}} variant="extended" onClick={participate.length>0?()=>findPartcipatedEvents(true): ()=>findPartcipatedEvents(false)}>I participate
       {participate.length>0&&<CheckCircleOutlineIcon sx={{
           position: 'absolute',
           top: '0',

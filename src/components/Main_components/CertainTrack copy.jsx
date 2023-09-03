@@ -151,6 +151,7 @@ export default function CertainTrack2(props) {
   let sportType
   let latAndLong
   let onlineLink
+  let price
   try { 
     for (let track in props.allTrack) {
       if (props.allTrack[track].name == id) {
@@ -163,6 +164,7 @@ export default function CertainTrack2(props) {
         subtrackNames = props.allTrack[track].trackName
         city = props.allTrack[track].city
         sportType = props.allTrack[track].activity
+        price = props.allTrack[track].price
         latAndLong = props.allTrack[track]?.latAndLong ?props.allTrack[track]?.latAndLong: ""
         trackNumber = track;
         console.log(slot_number, subtrackNames)
@@ -309,12 +311,12 @@ export default function CertainTrack2(props) {
     const fullDate = `${date} ${time.split("-")[0]}:00`;
     let arr = fullDate.split(/[- :]/);
     const activity_start_datetime = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4]);
-  
+    let pricePerPerson = Math.round(price/slots.length)
     console.log(date, time, activity_start_datetime)
     console.log(slots)
     slots[slots.indexOf("")] = user
     console.log(subTrackName)
-    const dataForLink = {trackName: `Event at ${trackName}`, slots, location: loc, activity_start_datetime, time: `${date} ${time}`,user, subTrackName, description: `Subtrack: ${subTrackName}` , isopen: false, city, isLimited: true, organizer, img_urls, sportType, latAndLong, lengthOfActivity:2}
+    const dataForLink = {trackName: `Event at ${trackName}`, slots, location: loc, activity_start_datetime, time: `${date} ${time}`,user, subTrackName, description: `Subtrack: ${subTrackName}` , isopen: false, city, isLimited: true, organizer, img_urls, sportType, latAndLong, lengthOfActivity:2, price: pricePerPerson}
     console.log(dataForLink)
    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/customLink`, {
       method: "POST",
@@ -341,6 +343,7 @@ export default function CertainTrack2(props) {
 console.log(timeInterval)
 
 
+
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 
   return (
@@ -352,6 +355,7 @@ console.log(timeInterval)
       <Box sx={{backgroundColor:"#dbdbdb", borderRadius:"10px", padding:"10px 15px", margin:{xs:'10px', md:"0px"}}}>
       <Typography variant="h5" sx={{marginBottom:"10px", }}>{desc} </Typography>
       <Typography variant="h5" sx={{margin:"0px", }}> Activity Type: {sportType} </Typography>
+      <Typography variant="h5" sx={{margin:"0px", }}> Price: {price}Ft </Typography>
       </Box>
       <Grid width={{md:"1152px", xs:"90%"}} height={"450px"} margin={"30px auto"} display={{xs:"none", md:"flex"}} justifyContent={"space-between"} onClick={()=>setImageIndicator(true)} >
         <Box sx={{width:{md:"49.5%", xs:"100%"}, borderRadius:{xs:"10px !important"}}} >

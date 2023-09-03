@@ -50,6 +50,7 @@ import MapIcon from '@mui/icons-material/Map';
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 import PeopleIcon from '@mui/icons-material/People';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 
 const sportsIcons = [
@@ -485,6 +486,12 @@ export default function MainPage(props) {
                   
                 /><Box display={"flex"} flexDirection={"column"} justifyContent={"center"} width={"40%"}>
                 <CardContent className="tooltip  " >
+                <Box display={"flex"} gap={2} sx={{margin:"10px 0px"}}>
+                 <AttachMoneyIcon/>
+                  <Typography variant="h6" color="text.secondary">
+                    {item.price}Ft
+                  </Typography>
+                  </Box>
                  <Box display={"flex"} gap={2} sx={{margin:"10px 0px"}}>
                  <LocationOnIcon/>
                   <Typography variant="h6" color="text.secondary">
