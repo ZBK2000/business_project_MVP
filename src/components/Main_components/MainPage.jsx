@@ -12,7 +12,7 @@ import Filter from "./Filter";
 import { useEffect } from "react";
 import { useTheme } from "@emotion/react";
 import { UserAuth } from "../../context/AuthContext";
-import { Box, Fab, Grid } from "@mui/material";
+import { Box, CardHeader, Fab, Grid } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useMemo } from "react";
@@ -46,6 +46,10 @@ import SchoolIcon from "@mui/icons-material/School";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Help from "./Help";
+import MapIcon from '@mui/icons-material/Map';
+import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
+import PeopleIcon from '@mui/icons-material/People';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 
 const sportsIcons = [
@@ -436,7 +440,7 @@ export default function MainPage(props) {
             item
             padding={"8px !important"}
          
-            xl={12}
+            xs={12}
             key={item._id}
             sx={{ cursor: "pointer" }}
           >
@@ -444,51 +448,17 @@ export default function MainPage(props) {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              
+              style={{display:"flex", justifyContent:"center"}}
             >
-              <Box display={"flex"} justifyContent={"center"} sx={{width:"100%"}} position={"relative"}>
-                <Box sx={{backgroundColor:"#D8D9DA", width:{xs:"90%",md:"70%"}, borderRadius:"10px", position:"relative"}}  display={"flex"} flexDirection={{xs:"column", md:"row"}} justifyContent={"center"} alignItems={"center"}>
-                {foundItem && (
-                  <Box
-                    sx={{
-                     position: "absolute",
-                     left:{md:"1%",xs:"7%"},
-                     top:{md:"8%",xs:"77%"},
-                      color: "white",
-                   
-                      backgroundColor: "#a2a1a196",
-                      borderRadius: "10px",
-                      padding: "5px",
-                      display:"flex",
-                      alignItems:"center",
-                      justifyContent:"center",
-                      
-                    }}
-                  >
-                    {foundItem.icon}
-                  </Box>
-                )}
+            
 
-<Typography
-                    sx={{
-                     position: "absolute",
-                     left:{md:"1%",xs:"18%"},
-                     top:{md:"20%",xs:"77%"},
-                      
-                   
-                      
-                      
-                      
-                      
-                    }}
-                  >
-                    reviews: 4.7/5
-                  </Typography>
+
               <Card
-                className="tracks"
+                
                 sx={{
                   backgroundColor: theme.palette.secondary.main,
-                  width:"500px",
+                  width:{md:"700px !important",xs:"100%"},
+                
                   position: "relative",
                  
                 }}
@@ -497,53 +467,61 @@ export default function MainPage(props) {
                      () => navigate(`/tracks/${item.name}/2`)}
                     
               >
-
+                <CardHeader
+                title={item.name}
+                subheader= {item.description}/> 
+                
                
             
          
+                
+                <Box display={"flex"} justifyContent={"center"} height={"300px"}>
                 <CardMedia
                   component="img"
-                  sx={{ height: 140, backgroundColor:"#e1dfdf" }}
+                  sx={{ height: "100%", backgroundColor:"#e1dfdf"}}
                   src=
                   {`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${item.name}&number=0`}
                  
                   
-                />
-                <CardContent className="tooltip  ">
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="div"
-                    sx={{
-                      overflow: "hidden",
-                      whiteSpace: "nowrap",
-                      textOverflow: "ellipsis",
-                      maxWidth: "250px",
-                    }}
-                  >
-                    {item.name}{" "}
-                    <span class="tooltiptext">{item.name} </span>
+                /><Box display={"flex"} flexDirection={"column"} justifyContent={"center"} width={"40%"}>
+                <CardContent className="tooltip  " sx={{margin:"20px 0px"}}>
+                 <Box display={"flex"} gap={2} sx={{margin:"10px 0px"}}>
+                 <LocationOnIcon/>
+                  <Typography variant="h6" color="text.secondary">
+                    {item.city}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {item?.city ? item.city : "-"}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {item.time}
-                  </Typography>
-
-                  <Typography variant="body2" color="text.secondary">
+                  </Box>
+                 
+                  <Box display={"flex"} gap={2} sx={{margin:"10px 0px"}}> 
+                  <PeopleIcon/>
+                  <Typography variant="h6" color="text.secondary">
                   {item.slot_number.join('P, ')}P
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                  </Box>
+                 
+                  <Box display={"flex"} gap={2} sx={{margin:"10px 0px"}}>
+                 <ThumbsUpDownIcon/>
+                  <Typography variant="h6" color="text.secondary">
+                    4.5/5
+                  </Typography>
+                  </Box>
+                  <Box display={"flex"} gap={2} sx={{margin:"10px 0px"}}> 
+                  <Typography variant="h6" color="text.secondary">
+                  {foundItem.icon}
+                  </Typography>
+                  <Typography variant="h6" color="text.secondary">
                     {item.activity}
                   </Typography>
+                  </Box>
                 </CardContent>
+             
+
+                </Box>
+                </Box>
               </Card>
-              <Box sx={{padding:"30px"}}>
-              <Typography sx={{width:"345px"}} variant="h6">{item.description}</Typography>
-              </Box>
-              </Box>
-              </Box>
+         
+              
+              
             </motion.div>
           </Grid>
         );

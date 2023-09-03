@@ -354,13 +354,14 @@ console.log(timeInterval)
       <Typography variant="h5" sx={{margin:"0px", }}> Activity Type: {sportType} </Typography>
       </Box>
       <Grid width={{md:"1152px", xs:"90%"}} height={"450px"} margin={"30px auto"} display={"flex"} justifyContent={"space-between"} onClick={()=>setImageIndicator(true)} >
-        <Box sx={{width:{md:"49.5%", xs:"100%"}}} >
+        <Box sx={{width:{md:"49.5%", xs:"100%"}, borderRadius:{xs:"10px !important"}}} >
       <img
                   
                   src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${id}&number=0`}
                  
                   className="images2 slide left"
                   alt="image"
+                  
                 />
                 </Box>
                 <Box sx={{width:"49.5%", margin:"0px 0px 0px 10px"}} display={{md:"flex", xs:"none"}} flexDirection={"column"} justifyContent={"space-between"}>
