@@ -53,6 +53,7 @@ function Conversation(props) {
 
   async function leaveReview(e){
     e.preventDefault()
+    if(user){
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/review`, {
       method: "POST",
       body: JSON.stringify({review, name, linkId: props._id } ),
@@ -74,7 +75,9 @@ function Conversation(props) {
         </Grid> )
   ))
     setReview("")
-    
+    } else{
+      props.register(true)
+    }
   }
 
   

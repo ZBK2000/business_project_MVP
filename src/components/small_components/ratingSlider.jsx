@@ -44,6 +44,7 @@ function RatingSlide(props) {
 
   async function leaveReview(e){
     e.preventDefault()
+    if(user){
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/review`, {
       method: "POST",
       body: JSON.stringify({reviewicon: rating, review, name, trackName:props.title } ),
@@ -54,7 +55,10 @@ function RatingSlide(props) {
     const reviews = await response.json()
     setAllReview(reviews)
     setReview("")
-    setAlredyReviewed(true)
+    setAlredyReviewed(true)}
+    else{
+      props.register(true)
+    }
   }
 
   

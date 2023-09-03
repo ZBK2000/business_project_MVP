@@ -353,7 +353,7 @@ console.log(timeInterval)
       <Typography variant="h5" sx={{marginBottom:"10px", }}>{desc} </Typography>
       <Typography variant="h5" sx={{margin:"0px", }}> Activity Type: {sportType} </Typography>
       </Box>
-      <Grid width={{md:"1152px", xs:"90%"}} height={"450px"} margin={"30px auto"} display={"flex"} justifyContent={"space-between"} onClick={()=>setImageIndicator(true)} >
+      <Grid width={{md:"1152px", xs:"90%"}} height={"450px"} margin={"30px auto"} display={{xs:"none", md:"flex"}} justifyContent={"space-between"} onClick={()=>setImageIndicator(true)} >
         <Box sx={{width:{md:"49.5%", xs:"100%"}, borderRadius:{xs:"10px !important"}}} >
       <img
                   
@@ -386,6 +386,41 @@ console.log(timeInterval)
                 </Box>
 
       </Grid>
+
+      <Grid
+           minWidth={"100%"}
+           maxWidth={"600px"}
+           maxHeight={"300px"}
+           height={"300px"}
+              item
+              xs={12}
+              sm={10}
+              md={8}
+              lg={8}
+              xl={4}
+              className="slider"
+              sx={{padding:"0px !important", margin:{md:"10px 0px 10px 10px",xs:"0px"}, minWidth:{md:"50%", xs:'100%'}, display:{xs:"flex",md:"none"}, alignItems:"center"}}
+              
+            >
+
+              {Array.from({ length: img_number }, (_, i) => (
+                <img
+                  key={i}
+                  
+                  src={`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${id}&number=${i}`}
+                  className="images slide"
+                  alt="image"
+                />
+              ))}
+                            <ArrowForwardIosIcon onClick={(e)=>changeSlide(e, 1)} sx={{position:"absolute",  left: "85%",
+  bottom: "45%", fontSize:"45px", color:"#f5f5f5", "&:hover":{ fontSize:"50px", color:"#d1d1d1"}}} />
+   <ArrowBackIosNewIcon onClick={(e)=>changeSlide(e,-1)} sx={{position:"absolute",  right: "85%",
+  bottom: "45%", fontSize:"45px", color:"#f5f5f5", "&:hover":{ fontSize:"50px", color:"#d1d1d1"}}} />
+            </Grid>
+
+
+
+
       <Box display={{md:"flex"}}>
 
       <Typography variant="h5" sx={{margin:{md:"10px 0px 10px",xs:"10px"}, width:"300px"}} >Choose a Track </Typography>
@@ -457,7 +492,8 @@ console.log(timeInterval)
               </Grid>
             ))}
             </Box>
-            <Box sx={{borderRadius:"10px", backgroundColor:"#dbdbdb", height:"100%", display:"flex", flexDirection:"column", justifyContent:"center"}} margin={{xs:'10px', md:"0px"}}>
+            <Box sx={{borderRadius:"10px", backgroundColor:"#dbdbdb", height:"100%", display:"flex", flexDirection:"column", justifyContent:"center", position:"relative"}} margin={{xs:'10px', md:"0px"}}>
+           
               <Box display={"flex"} justifyContent={"space-around"} sx={{padding:"10px"}}>
                 {/*<Box sx={{borderRadius:"10px",backgroundColor:"#ffffff", width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center"}}><Typography>CHECK THE PLAYERS WHO ARE INTERESTED</Typography> </Box>
                 <Box sx={{borderRadius:"10px",backgroundColor:"#ffffff",width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center"}}><Typography>I'M INTERESTED TO PLAY AT THAT TIME</Typography></Box>*/}
@@ -479,7 +515,7 @@ console.log(timeInterval)
             </Box>
             </Box>
             <Box display={"flex"} flexDirection={{xs:"column",md:"row"}} gap={3} marginTop={"30px"}>
-            <RatingSlide title={id}/>
+            <RatingSlide title={id} register={setShowRegister}/>
             <Box sx={{width:{md:"50%"}}}>
         {latAndLong?<GoogleMapIndividual coordinates={latAndLong}/>:onlineLink? 
         <Box><Typography variant='h5'>Link:</Typography>

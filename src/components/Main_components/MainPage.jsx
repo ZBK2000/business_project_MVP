@@ -475,16 +475,16 @@ export default function MainPage(props) {
             
          
                 
-                <Box display={"flex"} justifyContent={"center"} height={"300px"}>
+                <Box display={"flex"} flexDirection={{xs:"column", md:"row"}} justifyContent={"center"} height={{md:"300px"}}>
                 <CardMedia
                   component="img"
-                  sx={{ height: "100%", backgroundColor:"#e1dfdf"}}
+                  sx={{ height:{md: "100%", xs:"140px"}, backgroundColor:"#e1dfdf"}}
                   src=
                   {`${import.meta.env.VITE_BACKEND_URL}/img?user_id=${item.name}&number=0`}
                  
                   
                 /><Box display={"flex"} flexDirection={"column"} justifyContent={"center"} width={"40%"}>
-                <CardContent className="tooltip  " sx={{margin:"20px 0px"}}>
+                <CardContent className="tooltip  " >
                  <Box display={"flex"} gap={2} sx={{margin:"10px 0px"}}>
                  <LocationOnIcon/>
                   <Typography variant="h6" color="text.secondary">

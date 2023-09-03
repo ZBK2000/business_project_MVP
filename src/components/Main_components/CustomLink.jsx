@@ -399,7 +399,7 @@ const count = linkData?.slots? linkData.slots.reduce((acc, curr) => {
       
    
 <Box  justifyContent={"space-between"} sx={{display:"flex", flexDirection:{md:"row", xs:"column"},gap:{xs:1, md:0}, alignItems:"center"}}>
-<Conversation _id={linkData._id}/> 
+<Conversation _id={linkData._id} register={setShowRegister}/> 
         <div className="example-container">
 
    
