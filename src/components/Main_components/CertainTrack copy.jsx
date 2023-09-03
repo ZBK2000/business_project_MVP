@@ -306,13 +306,17 @@ export default function CertainTrack2(props) {
   // generating link numbers for custom path
    async function generateRandomLinkPath(trackName, slots, loc, time, date, user, subTrackName, city, organizer, img_urls, sportType) {
     slots = Array(Number(slots[subtrackNames.indexOf(subTrackName)])).fill("")
-    const activity_start_datetime = new Date(`${date} ${time.split("-")[0]}:00`);
+    const fullDate = `${date} ${time.split("-")[0]}:00`;
+    let arr = fullDate.split(/[- :]/);
+    const activity_start_datetime = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4]);
+  
+    console.log(date, time, activity_start_datetime)
     console.log(slots)
     slots[slots.indexOf("")] = user
     console.log(subTrackName)
     const dataForLink = {trackName: `Event at ${trackName}`, slots, location: loc, activity_start_datetime, time: `${date} ${time}`,user, subTrackName, description: `Subtrack: ${subTrackName}` , isopen: false, city, isLimited: true, organizer, img_urls, sportType, latAndLong, lengthOfActivity:2}
     console.log(dataForLink)
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/customLink`, {
+   const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/customLink`, {
       method: "POST",
       body: JSON.stringify(dataForLink),
       headers: {
@@ -335,7 +339,6 @@ export default function CertainTrack2(props) {
 
 
 console.log(timeInterval)
-
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------

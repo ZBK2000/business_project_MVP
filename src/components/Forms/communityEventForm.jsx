@@ -55,7 +55,10 @@ export default function CommunityEvent(props) {
     organizer,
     img,  lengthOA,price
   ) {
-    const activity_start_datetime = new Date(`${exactDate} ${time}`);
+    
+    const fullDate = `${exactDate} ${time}`;
+    let arr = fullDate.split(/[- :]/);
+    const activity_start_datetime = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4]);
     for (const item of [
       trackName,
       online ? "skip" : loc,
