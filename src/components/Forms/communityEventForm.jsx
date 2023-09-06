@@ -362,6 +362,9 @@ export default function CommunityEvent(props) {
                 value={location}
                 style={{ border: missing && !location && "1px solid red" }}
               />
+                <label htmlFor="location">
+                <Typography>Currently your event wont appear on a map, because google maps (geocoding) is disabled currently, because of billing purposes!</Typography>
+              </label>
             </Box>
           ) : (
             <Box>
