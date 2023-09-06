@@ -29,7 +29,7 @@ export default function Sports (props){
     {name: 'Cycling', icon: <DirectionsBikeIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
     {name: 'Fitness', icon: <FitnessCenterIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
     {name: 'Swimming', icon: <PoolIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
-    {name: 'Kayaking', icon: <KayakingIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
+    {name: 'Canoeing', icon: <KayakingIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
     {name: 'Basketball', icon: <SportsBasketballIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
     {name: 'Football', icon: <SportsFootballIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
     {name: 'Handball', icon: <SportsHandballIcon sx={{fontSize:'35px', margin:"0 10px"}}/>},
