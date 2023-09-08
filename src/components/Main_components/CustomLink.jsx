@@ -233,7 +233,8 @@ const count = linkData?.slots? linkData.slots.reduce((acc, curr) => {
 }, 0): ""
    
   return (<Grid>
-    <Header title="Custom Group" startOfHeader={true} setHelp={setHelp}/>
+    <Header title="Custom Group" startOfHeader={true} setHelp={setHelp}   setShowRegister={setShowRegister}
+        setShowLogin={setShowLogin}/>
 
     <Grid display={"flex"} justifyContent={"center"}>
     <Grid sx={{ 
@@ -305,6 +306,14 @@ const count = linkData?.slots? linkData.slots.reduce((acc, curr) => {
       {linkData.location}
     </Typography>
   </Box>
+  {linkData?.subTrackName!="-"&&<Box sx={{ display: "grid", gridTemplateColumns: "120px auto", gap: 6 }}>
+    <Typography variant="h6" component="h1" gutterBottom>
+      Track Name:
+    </Typography>
+    <Typography variant="h6" component="h1" gutterBottom>
+      {linkData.subTrackName}
+    </Typography>
+  </Box>}
  
   <Box sx={{ display: "grid", gridTemplateColumns: "120px auto", gap: 6 }}>
     <Typography variant="h6" component="h1" gutterBottom>

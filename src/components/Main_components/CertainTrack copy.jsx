@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Paper from "@mui/material/Paper";
 
 import { styled } from "@mui/material/styles";
-import { Fab, Grid, IconButton, List, ListItem, ListItemText, MenuItem, Select, Typography } from "@mui/material";
+import { Fab, Grid, IconButton, List, ListItem, ListItemText, MenuItem, Select, Typography, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { UserAuth } from "../../context/AuthContext";
 
@@ -24,6 +24,9 @@ import LoginWithFirebase from "../Forms/loginWithFirebase";
 import UserRegisterWithFirebase from "../Forms/UserRegisterWithFirebase";
 import ProvideUserName from "../Smaller_Pop_ups/ProvideUserName";
 import GoogleMapIndividual from "../small_components/staticGoogleMap";
+import Help from "./Help";
+import PersonIcon from '@mui/icons-material/Person';
+
 
 
 export default function CertainTrack2(props) {
@@ -63,11 +66,32 @@ export default function CertainTrack2(props) {
   const [showLogin, setShowLogin] = useState(false)
   const [showRegister, setShowRegister] = useState(false)
   const [provideUserName, setProvideUserName] = useState(false)
+  const [partnerEvent, setPartnerEvent] = useState(false)
+  const [help, setHelp] = useState(false)
+  const [joined, setJoined] = useState(false)
+  const [eventName, setEventName] = useState("")
+  const [eventDesc, setEventDesc] = useState("")
+  const [red, setRed] = useState(false)
   const { pathname } = useLocation();
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+  useEffect(() => {
+    for(let h of h3s){
+      if(h.text ==h3s.find((obj) => obj.id === timeInterval)?.text){
+        console.log(h, nameOfUser)
+        if(h.slots.includes(nameOfUser)){
+          console.log("h")
+          setJoined(true)
+        } else{setJoined(false)
+          console.log("h")}
+
+      }
+     
+    };
+  }, [h3s, timeInterval]);
   //declaring the function, which will be activated when someone join to a timeline
   const handleClick = async (id, subTrackName, city, sportType) => {
     console.log(id, subTrackName)
@@ -183,6 +207,7 @@ export default function CertainTrack2(props) {
     }
     console.log(new_slots)
 
+    console.log(h3s, h3s.find((obj) => obj.id === timeInterval)?.text)
     
     useEffect(() => {
       
@@ -316,7 +341,7 @@ export default function CertainTrack2(props) {
     console.log(slots)
     slots[slots.indexOf("")] = user
     console.log(subTrackName)
-    const dataForLink = {trackName: `Event at ${trackName}`, slots, location: loc, activity_start_datetime, time: `${date} ${time}`,user, subTrackName, description: `Subtrack: ${subTrackName}` , isopen: false, city, isLimited: true, organizer, img_urls, sportType, latAndLong, lengthOfActivity:2, price: pricePerPerson}
+    const dataForLink = {trackName: eventName, slots, location: loc, activity_start_datetime, time: `${date} ${time}`,user, subTrackName, description: eventDesc , isopen: false, city, isLimited: true, organizer, img_urls, sportType, latAndLong, lengthOfActivity:2, price: pricePerPerson}
     console.log(dataForLink)
    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/customLink`, {
       method: "POST",
@@ -342,13 +367,20 @@ export default function CertainTrack2(props) {
 
 console.log(timeInterval)
 
-
+function closePopup(e) {
+  if (e.target === e.currentTarget) {
+    // Clicked on the parent element, not on any of its descendants
+    setPartnerEvent(false);
+  }
+}
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 
   return (
     <div>
-      <Header title={id} success={props.getDownData} name={nameOfUser} startOfHeader={true}/>
+      <Header title={id} success={props.getDownData} name={nameOfUser} startOfHeader={true} setShowRegister={setShowRegister}
+        setShowLogin={setShowLogin}
+        setHelp={setHelp} />
       
       <Grid width={{md:"1152px", xs:"100%"}} height={"450px"} margin={"30px auto"}>
       <Typography variant="h4" sx={{margin:{md:"20px 0px",xs:"20px 10px"} }}>{id} </Typography>
@@ -392,7 +424,7 @@ console.log(timeInterval)
       </Grid>
 
       <Grid
-           minWidth={"100%"}
+           minWidth={"90%"}
            maxWidth={"600px"}
            maxHeight={"300px"}
            height={"300px"}
@@ -403,7 +435,7 @@ console.log(timeInterval)
               lg={8}
               xl={4}
               className="slider"
-              sx={{padding:"0px !important", margin:{md:"10px 0px 10px 10px",xs:"0px"}, minWidth:{md:"50%", xs:'100%'}, display:{xs:"flex",md:"none"}, alignItems:"center"}}
+              sx={{padding:"0px !important", margin:{md:"10px 0px 10px 10px",xs:"10px"}, minWidth:{md:"50%", xs:'90%'}, display:{xs:"flex",md:"none"}, alignItems:"center", justifyContent:"center"}}
               
             >
 
@@ -501,8 +533,23 @@ console.log(timeInterval)
               <Box display={"flex"} justifyContent={"space-around"} sx={{padding:"10px"}}>
                 {/*<Box sx={{borderRadius:"10px",backgroundColor:"#ffffff", width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center"}}><Typography>CHECK THE PLAYERS WHO ARE INTERESTED</Typography> </Box>
                 <Box sx={{borderRadius:"10px",backgroundColor:"#ffffff",width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center"}}><Typography>I'M INTERESTED TO PLAY AT THAT TIME</Typography></Box>*/}
-                <Button  onClick={()=>setPlayers(true)} sx={{borderRadius:"10px", width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center", color:"black",backgroundColor:"#ffffff","&:hover": {
-          backgroundColor: "white"}}}>CHECK THE PLAYERS WHO ARE INTERESTED</Button>
+                <Button  onClick={()=>setPlayers(true)} sx={{border:joined?"1px solid green":"none",borderRadius:"10px", width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center", color:"black",backgroundColor:"#ffffff","&:hover": {
+          backgroundColor: "white" }}}>CHECK THE PLAYERS WHO ARE INTERESTED
+          {joined&&<PersonIcon 
+          sx={{
+            position: 'absolute',
+            top: -4,
+            right: -4,
+            backgroundColor: 'green !important',
+            color: 'white !important',
+            width: '25px',
+            height: '25px',
+            minWidth: '0',
+            borderRadius: '50%',
+            fontSize: '10px',
+            fontWeight: 'bold',
+            minHeight:'0px'
+          }}/>}</Button>
                 <Button    onClick={user?user.emailVerified?() => handleClick(timeInterval, subTrackName, city, sportType):()=>setVerifyEmail(true) :() => setShowRegister(true)}
                 sx={{borderRadius:"10px", width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center", backgroundColor:"#ffffff", color:"black", borderColor:"#e0e0e0", "&:hover": {
           backgroundColor: "white"}}}>I'M INTERESTED TO PLAY AT THAT TIME</Button>
@@ -513,7 +560,7 @@ console.log(timeInterval)
               <Box display={"flex"} justifyContent={"space-around"} sx={{padding:"10px"}}>
                 <Box sx={{borderRadius:"10px",width:"40%",padding:"10px 0px", display:"flex" ,alignItems:"center", justifyContent:"center"}}><Typography>Do you want to organize a match with your friends in a closed event?</Typography> </Box> 
                 {/*<Box sx={{borderRadius:"10px",backgroundColor:"#ffffff",width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center"}}><Typography>ORGANIZE A MATCH IN THIS TIMESLOT</Typography></Box>*/}
-                <Button  onClick={user?user.emailVerified?()=>generateRandomLinkPath(id, slot_number, location,h3s.find((obj) => obj.id === timeInterval)?.text, rightDay, nameOfUser, subTrackName, city, nameOfUser, img_urls, sportType):()=>setVerifyEmail(true):() => setShowRegister(true)} sx={{borderRadius:"10px", width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center", backgroundColor:"#ffffff", color:"black", "&:hover": {
+                <Button  onClick={user?user.emailVerified?()=>setPartnerEvent(true)/*generateRandomLinkPath(id, slot_number, location,h3s.find((obj) => obj.id === timeInterval)?.text, rightDay, nameOfUser, subTrackName, city, nameOfUser, img_urls, sportType)*/:()=>setVerifyEmail(true):() => setShowRegister(true)} sx={{borderRadius:"10px", width:"40%",padding:"10px",display:"flex" ,alignItems:"center", justifyContent:"center", backgroundColor:"#ffffff", color:"black", "&:hover": {
           backgroundColor: "white"}}}>ORGANIZE A MATCH IN THIS TIMESLOT</Button>
               </Box>
             </Box>
@@ -528,6 +575,8 @@ console.log(timeInterval)
         </Box>
             </Box>
       </Grid>
+
+
      {imageIndicator&& <Box  onClick={()=>setImageIndicator(false)} sx={{
     position: 'fixed',
     top: 0,
@@ -575,6 +624,76 @@ console.log(timeInterval)
      {showLogin &&<LoginWithFirebase indicator={setShowLogin}/>} 
      {showRegister &&<UserRegisterWithFirebase indicator={setShowRegister} indicatorforLogin={setShowLogin} setProvideUserName={setProvideUserName}/>}
      {provideUserName && <ProvideUserName indicator={setProvideUserName}/>}
+     {help && <Help indicator={setHelp}/>}
+
+
+     {partnerEvent && <Box  sx={{
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    bgcolor: 'rgba(0, 0, 0, 0.5)', // Background color with opacity
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 9999, // Higher z-index to make sure it's above everything else
+    
+    
+  }}>
+    <Box sx={{width:"600px",height: "600px",overflow:"auto", backgroundColor:"white", borderRadius:"10px", padding:"10px"}}
+    >
+  <Typography margin={"15px"} variant="h5">Are you sure, you want to organize this event at the venue {<span style={{fontWeight:"bold"}}>{id}</span>}?</Typography>
+  <Box  margin={"15px"} >
+          <Typography variant="h6" > <li>You have to give a name and description to the event</li></Typography>
+          <Typography variant="h6" > <li>This will be a closed event, which you can open later, if you want</li></Typography>
+          <Typography variant="h6" > <li>Making the event will not book the appointment at the facility, until they accept</li></Typography>
+          
+        </Box>
+        <Typography margin={"25px 15px 5px"} fontWeight={"bold"} variant="h5" > General Info about the event:</Typography>
+  <Box display="flex" flexDirection="column" gap={1.5} margin={"15px"}>
+        <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+          <Typography variant="h6" sx={{ width: 250 }}> Event Name:</Typography>
+          <TextField onChange={e=>setEventName(e.target.value)} sx={{ width: 250, border:(red?"1px solid red":"none")}} />
+        </Box>
+        <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+          <Typography variant="h6" sx={{ width: 250 }}> Event description:</Typography>
+          <textarea onChange={e=>setEventDesc(e.target.value)} style={{width:"250px", border:(red?"1px solid red":"1px #F3F3F3 !important")}} />
+        </Box>
+        <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+          <Typography variant="h6" sx={{ width: 250 }}> Date:</Typography>
+          <Typography variant="h6" sx={{ width: 250 }}> {rightDay} </Typography>
+        </Box>
+        <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+          <Typography variant="h6" sx={{ width: 250 }}> Time:</Typography>
+          <Typography variant="h6" sx={{ width: 250 }}> From {h3s.find((obj) => obj.id === timeInterval)?.text.split("-")[0]}:00 to  {h3s.find((obj) => obj.id === timeInterval)?.text.split("-")[1].split(" ")[0]}:00 </Typography>
+        </Box>
+        <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+          <Typography variant="h6" sx={{ width: 250 }}> Location:</Typography>
+          <Typography variant="h6" sx={{ width: 250 }}>  {location}</Typography>
+        </Box>
+        <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+          <Typography variant="h6" sx={{ width: 250 }}> Track Name:</Typography>
+          <Typography variant="h6" sx={{ width: 250 }}> {subTrackName}</Typography>
+        </Box>
+        <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+          <Typography variant="h6" sx={{ width: 250 }}> Available places:</Typography>
+          <Typography variant="h6" sx={{ width: 250 }}>  {slot_number[subtrackNames.indexOf(subTrackName)]} People</Typography>
+        </Box>
+        <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+          <Typography variant="h6" sx={{ width: 250 }}> Full price:</Typography>
+          <Typography variant="h6" sx={{ width: 250 }}> {price} Ft</Typography>
+        </Box>
+      </Box>
+
+
+
+  <Button  onClick={(e)=>closePopup(e)} sx={{width:"50%"}} variant="fullfilled">Cancel</Button>
+  <Button  sx={{width:"50%", backgroundColor:"green"}} variant="fullfilled" onClick={(eventName&&eventDesc)?()=>generateRandomLinkPath(id, slot_number, location,h3s.find((obj) => obj.id === timeInterval)?.text, rightDay, nameOfUser, subTrackName, city, nameOfUser, img_urls, sportType):()=>setRed(true)}>Finalize Event</Button>
+  
+  
+  </Box>
+</Box>}
       </div>)}
 
 
