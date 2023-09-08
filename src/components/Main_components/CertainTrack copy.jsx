@@ -82,7 +82,7 @@ export default function CertainTrack2(props) {
     for(let h of h3s){
       if(h.text ==h3s.find((obj) => obj.id === timeInterval)?.text){
         console.log(h, nameOfUser)
-        if(h.slots.includes(nameOfUser)){
+        if(h.slots.includes(nameOfUser) && nameOfUser){
           console.log("h")
           setJoined(true)
         } else{setJoined(false)
