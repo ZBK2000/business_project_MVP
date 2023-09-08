@@ -25,7 +25,9 @@ return (
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 9999, // Higher z-index to make sure it's above everything else
+    zIndex: 9999,
+    overflow:"auto"
+     // Higher z-index to make sure it's above everything else
     
     
   }}>
@@ -33,15 +35,15 @@ return (
     >
   <Typography marginBottom={"10px"} variant="h4">Interested Players</Typography>
 
-  <Box display="flex" marginBottom={"10px"} flexDirection={{xs:"column",md:"row"}}>
+  <Box display="flex" marginBottom={"10px"} >
           <Typography variant="h6" sx={{ width: 250 }}> Track Name:</Typography>
           <Typography variant="h6" sx={{ width: 250 }}> {props.subTrack} </Typography>
         </Box>
-        <Box  marginBottom={"10px"} display="flex" flexDirection={{xs:"column",md:"row"}}>
+        <Box  marginBottom={"10px"} display="flex" >
           <Typography variant="h6" sx={{ width: 250 }}> Date:</Typography>
           <Typography variant="h6" sx={{ width: 250 }}>  {props.day}</Typography>
         </Box>
-        <Box marginBottom={"10px"} display="flex" flexDirection={{xs:"column",md:"row"}}>
+        <Box marginBottom={"10px"} display="flex" >
           <Typography variant="h6" sx={{ width: 250 }}> Time:</Typography>
           <Typography variant="h6" sx={{ width: 250 }}> From {rigthTimeLine.split("-")[0]}:00 to  {rigthTimeLine.split("-")[1].split(" ")[0]}:00 </Typography>
         </Box>
