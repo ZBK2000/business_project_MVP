@@ -31,9 +31,22 @@ return (
   }}>
     <Box sx={{width:"300px", backgroundColor:"white", borderRadius:"10px", padding:"10px"}}
     >
-  <Typography variant="h4">Joined Players</Typography>
-  <Typography variant="h4">On {props.subTrack} at {props.day} {rigthTimeLine}</Typography>
-  <List>
+  <Typography variant="h4">Interested Players</Typography>
+
+  <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+          <Typography variant="h6" sx={{ width: 250 }}> Track Name:</Typography>
+          <Typography variant="h6" sx={{ width: 250 }}> {props.subTrack} </Typography>
+        </Box>
+        <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+          <Typography variant="h6" sx={{ width: 250 }}> Date</Typography>
+          <Typography variant="h6" sx={{ width: 250 }}>  {props.day}</Typography>
+        </Box>
+        <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+          <Typography variant="h6" sx={{ width: 250 }}> Time:</Typography>
+          <Typography variant="h6" sx={{ width: 250 }}> From {rigthTimeLine.split("-")[0]}:00 to  {rigthTimeLine.split("-")[1].split(" ")[0]}:00 </Typography>
+        </Box>
+       
+  <List sx={{border:"1px solid black", borderRadius:"10px"}}>
   {players.map((slot) => (
     <ListItem sx={{ margin: "0px" }} className="slots-list-element">
       <PersonIcon />
