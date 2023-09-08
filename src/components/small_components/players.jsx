@@ -31,17 +31,17 @@ return (
   }}>
     <Box sx={{width:"300px", backgroundColor:"white", borderRadius:"10px", padding:"10px"}}
     >
-  <Typography variant="h4">Interested Players</Typography>
+  <Typography marginBottom={"10px"} variant="h4">Interested Players</Typography>
 
-  <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+  <Box display="flex" marginBottom={"10px"} flexDirection={{xs:"column",md:"row"}}>
           <Typography variant="h6" sx={{ width: 250 }}> Track Name:</Typography>
           <Typography variant="h6" sx={{ width: 250 }}> {props.subTrack} </Typography>
         </Box>
-        <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
-          <Typography variant="h6" sx={{ width: 250 }}> Date</Typography>
+        <Box  marginBottom={"10px"} display="flex" flexDirection={{xs:"column",md:"row"}}>
+          <Typography variant="h6" sx={{ width: 250 }}> Date:</Typography>
           <Typography variant="h6" sx={{ width: 250 }}>  {props.day}</Typography>
         </Box>
-        <Box display="flex" flexDirection={{xs:"column",md:"row"}}>
+        <Box marginBottom={"10px"} display="flex" flexDirection={{xs:"column",md:"row"}}>
           <Typography variant="h6" sx={{ width: 250 }}> Time:</Typography>
           <Typography variant="h6" sx={{ width: 250 }}> From {rigthTimeLine.split("-")[0]}:00 to  {rigthTimeLine.split("-")[1].split(" ")[0]}:00 </Typography>
         </Box>
